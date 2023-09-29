@@ -9,6 +9,7 @@ import SuccessSignUp from "./pages/SuccessSignUp";
 import SuccessPostTitle from "./pages/SuccessPostTitle";
 import ThreadPage from "./pages/ThreadPage";
 import UserLikesPage from "./pages/UserLikesPage";
+import AllThreadPage from "./pages/AllThreadPage";
 import "./main.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -25,6 +26,7 @@ root.render(
         <Route path="success" element={<SuccessSignUp />}></Route>
         <Route path="threadPage" element={<ThreadPage />}></Route>
         <Route path="userLikes" element={<UserLikesPage />}></Route>
+        <Route path="AllThread" element={<AllThreadPage />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

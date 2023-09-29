@@ -45,15 +45,6 @@ const App = () => {
           <Titles.Provider value={titles}>
             <ThreadTitles />
             <ThreadsAreas count="4" />
-            {/* <ThreadComments title_id="1" title="あの件について" count="4" />
-            <ShowNewComments title_id="1" title="あの件について"/>
-            <NewComments title_id="1" title="あの件について" />
-
-            <ThreadComments title_id="2" title="ちいかわを語る" count="4" />
-            <NewComments title_id="2" title="ちいかわを語る" />
-
-            <ThreadComments title_id="3" title="おにぎりの握り方" count="4" />
-            <NewComments title_id="3" title="おにぎりの握り方" /> */}
           </Titles.Provider>
         </Comments.Provider>
       </main>

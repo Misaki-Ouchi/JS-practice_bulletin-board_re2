@@ -4,6 +4,7 @@ import { Comments } from "./App";
 import ThreadTitle from "./ThreadTitle";
 import ThreadComments from "./ThreadComments";
 import ShowNewComments from "./ShowNewComments";
+import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {
   const titles = useContext(Titles);
@@ -23,20 +24,24 @@ const ThreadsAreas = (props) => {
   return (
     <div className="thread">
       <div className="threadWrap">
-        <div className="threadsAreas">
           {commentsList.map((value, index) => {
             return (
-              <div key={index}>
-                <ThreadTitle title={value.titleData.title} />
+              <div key={index} className="threadsArea">
+                {/* <ThreadTitle title={value.titleData.title} />
                 <ThreadComments comments={value.comments} count={props.count} />
                 <ShowNewComments
                   title_id={value.titleData.id}
                   title={value.titleData.title}
+                /> */}
+                <AThreadsArea
+                  title={value.titleData.title}
+                  comments={value.comments}
+                  count={props.count}
+                  title_id={value.titleData.id}
                 />
               </div>
             );
           })}
-        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./main.css";
@@ -16,6 +16,7 @@ const NewComments = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -25,27 +26,46 @@ const NewComments = (props) => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
     // タイトル、日時情報の追加
-    const date = new Date()
-    const month = date.getMonth() + 1
-    const week = ["日", "月", "火", "水", "木", "金", "土",]
-    const mil = Math.round(date.getMilliseconds()/10)
-    const a = date.getFullYear() + "/" + month + "/" + date.getDate() + "(" + week[date.getDay()] + ")"
-    const b = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + mil
-    const time = `${a} ${b}`
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    const week = ["日", "月", "火", "水", "木", "金", "土"];
+    const mil = Math.round(date.getMilliseconds() / 10);
+    const a =
+      date.getFullYear() +
+      "/" +
+      month +
+      "/" +
+      date.getDate() +
+      "(" +
+      week[date.getDay()] +
+      ")";
+    const b =
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds() +
+      "." +
+      mil;
+    const time = `${a} ${b}`;
     // formValues.title = props.title;
-    formValues.post_time = date.getTime()
-    formValues.time = time
+    formValues.post_time = date.getTime();
+    formValues.time = time;
     // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
         .post("http://localhost:3000/postComment/comments", formValues)
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       axios
-        .post(`http://localhost:3000/postComment/titles/${props.title_id}`, formValues)
-        .then(res => navigate("/"))
-        .catch(err => console.log(err));
+        .post(
+          `http://localhost:3000/postComment/titles/${props.title_id}`,
+          formValues
+      )
+        // フォームクリア
+        .then(setFormValues(initialValues))
+        .then((res) => navigate("/allThread"))
+        .catch((err) => console.log(err));
     }
-    console.log(formValues)
   };
   const validate = (values) => {
     const errors = {};
@@ -78,6 +98,7 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
+                  value={formValues.name}
                   onChange={(e) => handleChange(e)}
                 />
                 <br />
@@ -90,6 +111,7 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
+                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
@@ -102,6 +124,7 @@ const NewComments = (props) => {
                 id="message"
                 type="text"
                 name="message"
+                value={formValues.message}
                 rows="10"
                 onChange={(e) => handleChange(e)}
               />
