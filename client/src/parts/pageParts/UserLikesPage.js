@@ -1,6 +1,6 @@
-import TopTitle from "../Header";
+import TopTitle from "../dom/Header";
 // import ThreadComments from "./../ThreadComments";
-import Footer from "./../Footer";
+import Footer from "../dom/Footer";
 
 const ThreadPage = (props) => {
 

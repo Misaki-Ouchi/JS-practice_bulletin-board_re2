@@ -1,6 +1,6 @@
-import TopTitle from "./../Header";
-import SignUpForm from "./../SignUpForm";
-import Footer from "./../Footer";
+import TopTitle from "../dom/Header";
+import SignUpForm from "../forms/SignUpForm";
+import Footer from "../dom/Footer";
 
 const SignUpPage = () => {
 

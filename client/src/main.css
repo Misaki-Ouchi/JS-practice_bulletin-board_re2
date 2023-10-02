@@ -13,6 +13,10 @@ a {
   text-decoration: none;
   color: #00f;
 }
+button:hover,
+a:hover {
+  cursor: pointer;
+}
 a h1 { /* topTitle */
   color: #000;
 }
@@ -148,4 +152,14 @@ footer {
   color: red;
   font-size: 0.9rem;
   margin: 0;
+}
+
+/*-------------------------
+  スレ内ボタン・リンク
+-------------------------*/
+.threadBtnLinks {
+  display: flex;
+  gap: 1rem;
+  justify-content: end;
+  align-items: center;
 }

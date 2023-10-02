@@ -1,5 +1,3 @@
-import "./main.css";
-
 function Footer() {
   return (
     <footer>

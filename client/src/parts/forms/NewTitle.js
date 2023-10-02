@@ -1,11 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./main.css";
 
-const NewComments = (props) => {
+const NewTitle = () => {
+  const [titlesLen, setTitlesLen] = useState();
+  useEffect(() => {
+    const url = "http://localhost:3000/api/get/titles";
+    axios
+      .get(url)
+      .then((res) => setTitlesLen(res.data.length))
+      .catch((error) => console.log(error));
+  }, [setTitlesLen]);
+
   const initialValues = {
-    title_id: props.title_id,
+    title: "",
+    title_id: "",
     name: "",
     email: "",
     message: "",
@@ -19,7 +28,7 @@ const NewComments = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +38,14 @@ const NewComments = (props) => {
     const date = new Date();
     const month = date.getMonth() + 1;
     const week = ["日", "月", "火", "水", "木", "金", "土"];
-    const mil = Math.round(date.getMilliseconds() / 10);
+    let min = date.getMinutes()
+    if (min < 10) {
+      min = min + "0"
+    }
+    let mil = Math.round(date.getMilliseconds() / 10);
+    if (mil < 10) {
+      mil = mil + "0"
+    }
     const a =
       date.getFullYear() +
       "/" +
@@ -42,42 +58,38 @@ const NewComments = (props) => {
     const b =
       date.getHours() +
       ":" +
-      date.getMinutes() +
+      min +
       ":" +
       date.getSeconds() +
       "." +
       mil;
     const time = `${a} ${b}`;
-    // formValues.title = props.title;
+    formValues.title_id = titlesLen;
     formValues.post_time = date.getTime();
     formValues.time = time;
     // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
-        .post("http://localhost:3000/postComment/comments", formValues)
+        .post("http://localhost:3000/comments", formValues)
         .catch((err) => console.log(err));
       axios
-        .post(
-          `http://localhost:3000/postComment/titles/${props.title_id}`,
-          formValues
-      )
+        .post("http://localhost:3000/postTitle/titles", formValues)
+        .then((res) => navigate("/successPostTitle"))
+        .catch((err) => console.log(err))
         // フォームクリア
         .then(setFormValues(initialValues))
-        .then((res) => navigate("/allThread"))
+        .then((res) => navigate("/successPostTitle"))
         .catch((err) => console.log(err));
     }
+    console.log(formValues);
   };
   const validate = (values) => {
     const errors = {};
-    const regex =
-      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    if (!values.title) {
+      errors.title = "タイトルを入力してください。";
+    }
     if (!values.name) {
       errors.name = "名前を入力してください。";
-    }
-    if (!values.email) {
-      errors.email = "ID（メールアドレス）を入力してください。";
-    } else if (!regex.test(values.email)) {
-      errors.email = "正しいメールアドレスを入力してください。";
     }
     if (!values.message) {
       errors.message = "コメントを入力してください。";
@@ -86,10 +98,21 @@ const NewComments = (props) => {
   };
 
   return (
-    <div className="newComment">
+    <div className="newTitle">
       <div className="formContainer">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="uniForm">
+            <div className="formField">
+              <label htmlFor="タイトル">タイトル</label>
+              <br />
+              <input
+                id="title"
+                type="text"
+                name="title"
+                onChange={(e) => handleChange(e)}
+              />
+              <p className="errorMsg">{formErrors.title}</p>
+            </div>
             <div className="newCommentFlex">
               <div className="formField formFieldA">
                 <label htmlFor="名前">名前</label>
@@ -98,7 +121,6 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
-                  value={formValues.name}
                   onChange={(e) => handleChange(e)}
                 />
                 <br />
@@ -111,7 +133,6 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
-                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
@@ -124,7 +145,6 @@ const NewComments = (props) => {
                 id="message"
                 type="text"
                 name="message"
-                value={formValues.message}
                 rows="10"
                 onChange={(e) => handleChange(e)}
               />
@@ -138,4 +158,4 @@ const NewComments = (props) => {
   );
 };
 
-export default NewComments;
+export default NewTitle;

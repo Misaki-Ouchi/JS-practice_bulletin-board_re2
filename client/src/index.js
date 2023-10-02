@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState, useEffect, createContext } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter,Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import LogInPage from "./pages/LogInPage";
-import SignUpForm from "./pages/SignUpPage";
-import NewTitlePage from "./pages/NewTitlePage";
-import SuccessSignUp from "./pages/SuccessSignUp";
-import SuccessPostTitle from "./pages/SuccessPostTitle";
-import ThreadPage from "./pages/ThreadPage";
-import UserLikesPage from "./pages/UserLikesPage";
-import AllThreadPage from "./pages/AllThreadPage";
+import LogInPage from "./parts/pageParts/LogInPage";
+import SignUpForm from "./parts/pageParts/SignUpPage";
+import NewTitlePage from "./parts/pageParts/NewTitlePage";
+import SuccessSignUp from "./parts/pageParts/SuccessSignUp";
+import SuccessPostTitle from "./parts/pageParts/SuccessPostTitle";
+import ThreadPage from "./parts/pageParts/ThreadPage";
+import UserLikesPage from "./parts/pageParts/UserLikesPage";
+import AllThreadPage from "./parts/pageParts/AllThreadPage";
 import "./main.css";
+
+export const Comments = createContext();
+export const Titles = createContext();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +29,7 @@ root.render(
         <Route path="success" element={<SuccessSignUp />}></Route>
         <Route path="threadPage" element={<ThreadPage />}></Route>
         <Route path="userLikes" element={<UserLikesPage />}></Route>
-        <Route path="AllThread" element={<AllThreadPage />}></Route>
+        <Route path="allThread/:id" element={<AllThreadPage />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

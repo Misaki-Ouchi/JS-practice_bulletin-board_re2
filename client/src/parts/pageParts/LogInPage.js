@@ -1,6 +1,6 @@
-import TopTitle from "../Header";
-import LogInForm from "./../LogInForm";
-import Footer from "./../Footer";
+import TopTitle from "../dom/Header";
+import LogInForm from "../forms/LogInForm";
+import Footer from "../dom/Footer";
 
 const LogInPage = () => {
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./main.css";
 
 function WriteNewTitle() {
   return (

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import "./main.css";
 
-const SideMenus = () => {
+const SideMenus = (props) => {
   return (
     <>
       <nav className="sideMenu">

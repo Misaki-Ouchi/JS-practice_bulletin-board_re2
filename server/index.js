@@ -50,16 +50,27 @@ app.get("/api/get/comments", (req, res) => {
   });
 });
 // 指定タイトルIDのコメント
-// app.post("/api/get/comments/:title_id", (req, res) => {
-//   const sql = `SELECT * FROM comments WHERE title_id = ${req.params.title_id}`;
-//   con.query(sql, function (err, result) {
-//     console.log(result);
-//     if (err) {
-//       return res.json("Error");
-//     }
-//     return res.json(result);
-//   });
-// });
+app.get("/api/get/comments/:id", (req, res) => {
+  const sql = `SELECT * FROM comments WHERE title_id = ${req.params.id}`;
+  con.query(sql, function (err, result) {
+    console.log(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
+  });
+});
+// 指定タイトルIDのタイトル
+app.get("/api/get/title/:id", (req, res) => {
+  const sql = `SELECT * FROM titles WHERE id = ${req.params.id}`;
+  con.query(sql, function (err, result) {
+    console.log(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
+  });
+});
 app.get("/api/get/likes", (req, res) => {
   const sql = "SELECT * FROM likes";
   con.query(sql, function (err, result, fields) {
@@ -98,7 +109,7 @@ app.post("/login", (req, res) => {
 });
 
 // コメント投稿
-app.post("/postComment/comments", (req, res) => {
+app.post("/comments", (req, res) => {
   const sql =
     "INSERT INTO comments( id, title_id, name, email, message, post_time, time ) VALUES (0, ?, ?, ?, ?, ?, ?)";
   const values = [
@@ -129,29 +140,8 @@ app.post("/postComment/titles/:id", (req, res) => {
   });
 });
 
-// 新規タイトル
-app.post("/postTitle/comments", (req, res) => {
-  const sql = `INSERT INTO comments (id, title_id, name, email, message, post_time ) VALUES (0, ?, ?, ?, ?, ?)`;
-  const values = [
-    req.body.title_id,
-    req.body.name,
-    req.body.email,
-    req.body.message,
-    req.body.post_time,
-  ];
-  con.query(sql, values, function (err, result) {
-    if (err) {
-      return res.json("Error");
-    }
-    if (result.length > 0) {
-      return res.json(result);
-    } else {
-      return res.json("Failed");
-    }
-  });
-});
 app.post("/postTitle/titles", (req, res) => {
-  const sql = `INSERT INTO titles (id, title, count, post_time ) VALUES (0, ?, 0, ?)`;
+  const sql = `INSERT INTO titles (id, title, count, post_time ) VALUES (0, ?, 1, ?)`;
   const values = [req.body.title, req.body.post_time];
   con.query(sql, values, function (err, result) {
     console.log(result);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NewComments from "./NewComments";
+import NewComments from "../forms/NewComments";
 
 const ShowNewComments = (props) => {
   const [isClick, setIsClick] = useState(false);

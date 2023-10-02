@@ -1,58 +1,88 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./main.css";
 import axios from "axios";
 
-const NewTitle = () => {
+const NewComments = (props) => {
   const initialValues = {
-    title: "",
-    title_id: "",
+    title_id: props.title_id,
     name: "",
     email: "",
     message: "",
     post_time: "",
-    time: ""
-  };  const [formValues, setFormValues] = useState(initialValues);
+    time: "",
+  };
+  const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
+    setFormValues({ ...formValues, [name]: value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
     // タイトル、日時情報の追加
-    const date = new Date()
-    const month = date.getMonth() + 1
-    const week = ["日", "月", "火", "水", "木", "金", "土",]
-    const mil = Math.round(date.getMilliseconds()/10)
-    const a = date.getFullYear() + "/" + month + "/" + date.getDate() + "(" + week[date.getDay()] + ")"
-    const b = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + mil
-    const time = `${a} ${b}`
-    formValues.post_time = date.getTime()
-    formValues.time = time
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    const week = ["日", "月", "火", "水", "木", "金", "土"];
+    let min = date.getMinutes()
+    if (min < 10) {
+      min = min + "0"
+    }
+    let mil = Math.round(date.getMilliseconds() / 10);
+    if (mil < 10) {
+      mil = mil + "0"
+    }
+    const a =
+      date.getFullYear() +
+      "/" +
+      month +
+      "/" +
+      date.getDate() +
+      "(" +
+      week[date.getDay()] +
+      ")";
+    const b =
+      date.getHours() +
+      ":" +
+      min +
+      ":" +
+      date.getSeconds() +
+      "." +
+      mil;
+    const time = `${a} ${b}`;
+    formValues.post_time = date.getTime();
+    formValues.time = time;
+    // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
-        .post("http://localhost:3000/postTitle/comments", formValues)
+        .post("http://localhost:3000/comments", formValues)
         .catch((err) => console.log(err));
       axios
-        .post("http://localhost:3000/postTitle/titles", formValues)
-        .then((res) => navigate("/successPostTitle"))
+        .post(
+          `http://localhost:3000/postComment/titles/${props.title_id}`,
+          formValues
+      )
+        // フォームクリア
+        .then(setFormValues(initialValues))
+        .then((res) => navigate(`/allThread/${formValues.title_id}`))
         .catch((err) => console.log(err));
     }
-    console.log(formValues)
   };
   const validate = (values) => {
     const errors = {};
-    if (!values.title) {
-      errors.title = "タイトルを入力してください。";
-    }
+    const regex =
+      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
     if (!values.name) {
       errors.name = "名前を入力してください。";
+    }
+    if (!values.email) {
+      errors.email = "ID（メールアドレス）を入力してください。";
+    } else if (!regex.test(values.email)) {
+      errors.email = "正しいメールアドレスを入力してください。";
     }
     if (!values.message) {
       errors.message = "コメントを入力してください。";
@@ -61,21 +91,10 @@ const NewTitle = () => {
   };
 
   return (
-      <div className="newTitle">
+    <div className="newComment">
       <div className="formContainer">
         <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="uniForm">
-            <div className="formField">
-              <label htmlFor="タイトル">タイトル</label>
-              <br />
-              <input
-                id="title"
-                type="text"
-                name="title"
-                onChange={(e) => handleChange(e)}
-              />
-              <p className="errorMsg">{formErrors.title}</p>
-            </div>
+          <div className="uniForm">
             <div className="newCommentFlex">
               <div className="formField formFieldA">
                 <label htmlFor="名前">名前</label>
@@ -84,6 +103,7 @@ const NewTitle = () => {
                   id="name"
                   type="text"
                   name="name"
+                  value={formValues.name}
                   onChange={(e) => handleChange(e)}
                 />
                 <br />
@@ -96,6 +116,7 @@ const NewTitle = () => {
                   id="email"
                   type="text"
                   name="email"
+                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
@@ -108,6 +129,7 @@ const NewTitle = () => {
                 id="message"
                 type="text"
                 name="message"
+                value={formValues.message}
                 rows="10"
                 onChange={(e) => handleChange(e)}
               />
@@ -121,4 +143,4 @@ const NewTitle = () => {
   );
 };
 
-export default NewTitle;
+export default NewComments;

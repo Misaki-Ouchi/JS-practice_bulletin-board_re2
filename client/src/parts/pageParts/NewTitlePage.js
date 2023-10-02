@@ -1,6 +1,6 @@
-import TopTitle from "../Header";
-import NewTitle from "./../NewTitle";
-import Footer from "./../Footer";
+import TopTitle from "../dom/Header";
+import NewTitle from "../forms/NewTitle";
+import Footer from "../dom/Footer";
 
 const NewTitlePage = () => {
 

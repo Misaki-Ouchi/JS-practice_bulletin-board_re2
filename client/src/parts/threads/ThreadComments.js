@@ -2,14 +2,18 @@
 // 1コメと最新count個のコメントを表示
 
 const ThreadComments = (props) => {
+  let num = 0
+  if (props.comment_count > 5) {
+    num = props.comment_count - props.count - 2
+  }
   return (
     <ul>
     {props.comments.map((val, index) => {
       return (
-        index === 1 && (
+        index === 0 && (
           <li key={index}>
             <h3>
-              {val.comment_count} 名前：{val.name}：{val.time}
+              1 名前：{val.name}：{val.time}
             </h3>
             <p>{val.message}</p>
           </li>
@@ -17,17 +21,18 @@ const ThreadComments = (props) => {
       );
     })}
     {props.comments.map((val, index) => {
+      num++
       return (
-        index !== 1 &&
-        index >= props.comments.length - props.count && (
+        index !== 0 &&
+        index >= props.comment_count - props.count && (
           <li key={index}>
             <h3>
-              {val.comment_count} 名前：{val.name}：{val.time}
+              {num} 名前：{val.name}：{val.time}
             </h3>
             <p>{val.message}</p>
           </li>
         )
-      );
+        );
     })}
   </ul>
   );
