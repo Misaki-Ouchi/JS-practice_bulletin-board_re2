@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
-import MainPage from "./MainPage";
-// import DataList from "./datas/DataList";
+import AppSub from "./AppSub";
 
 export const Comments = createContext();
 export const Titles = createContext();
@@ -29,7 +28,7 @@ const App = () => {
   return (
     <Comments.Provider value={comments}>
       <Titles.Provider value={titles}>
-        <MainPage />
+        <AppSub />
       </Titles.Provider>
     </Comments.Provider>
   );

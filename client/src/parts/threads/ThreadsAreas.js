@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DataList } from "./../../MainPage";
+import { DataList } from "./../../AppSub";
 import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {
@@ -16,6 +16,7 @@ const ThreadsAreas = (props) => {
                   count={props.count}
                   comment_count={value.titleData.count}
                   title_id={value.titleData.id}
+                  readAll="true"
                 />
               </div>
             );

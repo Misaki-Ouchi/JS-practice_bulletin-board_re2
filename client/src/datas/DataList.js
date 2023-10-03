@@ -1,39 +1,56 @@
-import React, { useContext, createContext } from "react";
-import WriteNewTitle from "../parts/links&btns/WriteNewTitle";
-import SideMenus from "../SideMenus";
-import ThreadTitles from "../parts/threads/ThreadTitles";
-import ThreadsAreas from "../parts/threads/ThreadsAreas";
-import AllThreadPage from "../parts/pageParts/AllThreadPage";
-import { Titles, Comments } from "../App";
+// import Titles from "./Titles";
+// import Comments from "./Comments";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export const DataList = createContext();
 
-const ForProvide = () => {
-  const titles = useContext(Titles);
-  const comments = useContext(Comments);
-  const dataList = [];
+const DataList = () => {
+  const [Comments, setComments] = useState([]);
+  const [Titles, setTitles] = useState([]);
+  const [dataList, setDataList] = useState([]);
 
-  // dataListに{titleData(タイトルデータ), comments(コメント一覧)}を格納
-  for (let i = 0; i < titles.length; i++) {
-    dataList[i] = { titleData: titles[i], comments: [] };
-    for (let j = 0; j < comments.length; j++) {
-      if (titles[i].id === comments[j].title_id) {
-        dataList[i].comments.push(comments[j]);
-      }
-    }
-  }
+  // 投稿データ取得
+  useEffect(() => {
+    const url = "http://localhost:3000/api/get/comments";
+    axios
+      .get(url)
+      .then((res) => setComments(res.data))
+      .catch((error) => console.log(error));
+  }, [setComments]);
 
-  return (
-    <>
-      <DataList.Provider value={dataList}>
-        {/* <SideMenus />
-        <WriteNewTitle />
-        <ThreadTitles />
-      <ThreadsAreas /> */}
-        <AllThreadPage />
-      </DataList.Provider>
-    </>
-  );
+  // タイトルデータ取得
+  useEffect(() => {
+    const url = "http://localhost:3000/api/get/Titles";
+    axios
+      .get(url)
+      .then((res) => setTitles(res.data))
+      .catch((error) => console.log(error));
+  }, [setTitles]);
+  
+  // dataListに{titleData(タイトルデータ), Comments(コメント一覧)}を格納
+  useEffect(() => {
+    for (let i = 0; i < Titles.length; i++) {
+          dataList[i] = { titleData: Titles[i], Comments: [] };
+          for (let j = 0; j < Comments.length; j++) {
+            if (Titles[i].id === Comments[j].title_id) {
+              dataList[i].Comments.push(Comments[j]);
+            }
+          }
+        }
+  }, [Comments, Titles, dataList, setDataList]);
+  // const setData = () => {
+  //   for (let i = 0; i < Titles.length; i++) {
+  //     dataList[i] = { titleData: Titles[i], Comments: [] };
+  //     for (let j = 0; j < Comments.length; j++) {
+  //       if (Titles[i].id === Comments[j].title_id) {
+  //         dataList[i].Comments.push(Comments[j]);
+  //       }
+  //     }
+  //   }
+  // }
+  // await setData()
+
+  return dataList
 };
 
-export default ForProvide;
+export default DataList

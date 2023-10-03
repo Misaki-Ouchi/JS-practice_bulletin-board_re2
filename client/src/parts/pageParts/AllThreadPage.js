@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import TopTitle from "../dom/Header";
 import Footer from "../dom/Footer";
 import AThreadsArea from "../threads/AThreadsArea";
+import { DataList } from "./../../AppSub";
 
 const AllThreadPage = (props) => {
-  const { id } = useParams();
-  const [title, setTitle] = useState([]);
-  const [comments, setComments] = useState([]);
-
-  // 投稿データ取得
-  useEffect(() => {
-    const url = `http://localhost:3000/api/get/titles/${id}`;
-    axios
-      .get(url)
-      .then((res) => setTitle(res.data))
-      .catch((error) => console.log(error));
-  }, [setTitle, id]);
-  // タイトルデータ取得
-  useEffect(() => {
-    const url = `http://localhost:3000/api/get/comments/${id}`;
-    axios
-      .get(url)
-      .then((res) => setComments(res.data))
-      .catch((error) => console.log(error));
-  }, [setComments, id]);
+  let dataList = useContext(DataList);
+  const {id} = useParams();
+  // 指定タイトルのコメントのみ絞り込み
+  dataList = dataList.filter((val) => {
+    return val.titleData.id === Number(id)
+  })
 
   return (
     <>
       <TopTitle />
-      <div className="threadsArea">
-        <AThreadsArea
-          title={title[0].title}
-          comments={comments}
-          count={title[0].count}
-          comment_count={title[0].count}
-          title_id={id}
-        />
+    <div className="thread">
+      <div className="threadWrap">
+          {dataList.map((value, index) => {
+            return (
+              <div key={index} className="threadsArea" >
+                <AThreadsArea
+                  title={value.titleData.title}
+                  comments={value.comments}
+                  count={value.comments.length - 1}
+                  comment_count={value.titleData.count}
+                  title_id={value.titleData.id}
+                  readAll={false}
+                />
+              </div>
+            );
+          })}
       </div>
+    </div>
       <Footer />
     </>
   );

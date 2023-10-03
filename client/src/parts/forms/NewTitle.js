@@ -1,16 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { DataList } from "./../../AppSub";
 
 const NewTitle = () => {
-  const [titlesLen, setTitlesLen] = useState();
-  useEffect(() => {
-    const url = "http://localhost:3000/api/get/titles";
-    axios
-      .get(url)
-      .then((res) => setTitlesLen(res.data.length))
-      .catch((error) => console.log(error));
-  }, [setTitlesLen]);
+  const dataList = useContext(DataList)
+  const titlesLen = dataList.length
 
   const initialValues = {
     title: "",
@@ -64,7 +59,7 @@ const NewTitle = () => {
       "." +
       mil;
     const time = `${a} ${b}`;
-    formValues.title_id = titlesLen;
+    formValues.title_id = titlesLen + 1;
     formValues.post_time = date.getTime();
     formValues.time = time;
     // データ送信
