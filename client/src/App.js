@@ -15,7 +15,7 @@ const App = () => {
       .get(url)
       .then((res) => setComments(res.data))
       .catch((error) => console.log(error));
-  }, [setComments]);
+  }, [comments]);
   // タイトル一覧データ取得
   useEffect(() => {
     const url = "http://localhost:3000/api/get/titles";
@@ -23,7 +23,7 @@ const App = () => {
       .get(url)
       .then((res) => setTitles(res.data))
       .catch((error) => console.log(error));
-  }, [setTitles]);
+  }, [titles]);
 
   return (
     <Comments.Provider value={comments}>

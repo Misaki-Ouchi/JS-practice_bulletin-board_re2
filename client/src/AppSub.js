@@ -9,6 +9,7 @@ import SuccessPostTitle from "./parts/pageParts/SuccessPostTitle";
 import ThreadPage from "./parts/pageParts/ThreadPage";
 import UserLikesPage from "./parts/pageParts/UserLikesPage";
 import AllThreadPage from "./parts/pageParts/AllThreadPage";
+import EditCommentPage from "./parts/pageParts/EditCommentPage";
 import { Titles, Comments } from "./App";
 
 export const DataList = createContext();
@@ -52,6 +53,7 @@ const AppSub = () => {
           <Route path="threadPage" element={<ThreadPage />}></Route>
           <Route path="userLikes" element={<UserLikesPage />}></Route>
           <Route path="allThread/:id" element={<AllThreadPage />}></Route>
+          <Route path="editComment/:id" element={<EditCommentPage />}></Route>
         </Routes>
       </BrowserRouter>
     </DataList.Provider>

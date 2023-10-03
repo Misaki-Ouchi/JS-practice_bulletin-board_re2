@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { DataList } from "./../../AppSub";
 
@@ -64,11 +64,10 @@ const NewTitle = () => {
         .catch((err) => console.log(err));
       axios
         .post("http://localhost:3000/postTitle/titles", formValues)
-        .then((res) => navigate("/successPostTitle"))
-        .catch((err) => console.log(err))
         // フォームクリア
         .then(setFormValues(initialValues))
         .then((res) => navigate("/successPostTitle"))
+        .then()
         .catch((err) => console.log(err));
     }
     console.log(formValues);
