@@ -61,7 +61,7 @@ app.get("/api/get/comments/:id", (req, res) => {
   });
 });
 // 指定タイトルIDのタイトル
-app.get("/api/get/title/:id", (req, res) => {
+app.get("/api/get/titles/:id", (req, res) => {
   const sql = `SELECT * FROM titles WHERE id = ${req.params.id}`;
   con.query(sql, function (err, result) {
     console.log(result);

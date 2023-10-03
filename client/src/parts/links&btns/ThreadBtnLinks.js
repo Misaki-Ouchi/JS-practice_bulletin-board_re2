@@ -18,7 +18,8 @@ const ThreadBtnLinks = (props) => {
         {/* {props.readAll && ( */}
           <ReadAllLink
             title_id={props.title_id}
-            comment_count={props.comment_count}
+          comment_count={props.comment_count}
+          comments={props.comments}
           />
          {/* )} */}
       </div>

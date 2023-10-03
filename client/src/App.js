@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import MainPage from "./MainPage";
+// import DataList from "./datas/DataList";
 
 export const Comments = createContext();
 export const Titles = createContext();

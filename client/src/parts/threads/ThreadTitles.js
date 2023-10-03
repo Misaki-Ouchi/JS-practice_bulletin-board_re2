@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Titles } from "../../App";
+import { Titles } from "./../../App";
 
 function ThreadTitles() {
   const titles = useContext(Titles);

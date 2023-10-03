@@ -8,7 +8,7 @@ const LikesTitleBtn = (props) => {
 
   return (
     <>
-      <button onClick={() => handleClick()}>お気に入りに追加({props.comment_count})</button>
+      <button onClick={() => handleClick()}>お気に入り({props.comment_count})</button>
     </>
   );
 };

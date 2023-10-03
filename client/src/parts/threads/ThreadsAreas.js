@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DataList } from "../../MainPage";
+import { DataList } from "./../../MainPage";
 import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {

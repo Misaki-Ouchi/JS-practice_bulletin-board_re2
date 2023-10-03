@@ -6,6 +6,7 @@ import ThreadsAreas from "./parts/threads/ThreadsAreas";
 import SideMenus from "./SideMenus";
 import Footer from "./parts/dom/Footer";
 import { Titles, Comments } from "./App";
+import { useSelector} from "react-redux"
 
 export const DataList = createContext();
 
@@ -13,6 +14,11 @@ const MainPage = () => {
   const titles = useContext(Titles);
   const comments = useContext(Comments);
   const dataList = [];
+  const state = {
+    count: 0,               // 表示コメント数
+    isLoggedIn: false,      // ログイン状態
+    showReadAllLink: true,  // 全部読むリンク
+  }
 
   // dataListに{titleData(タイトルデータ), comments(コメント一覧)}を格納
   for (let i = 0; i < titles.length; i++) {
@@ -23,6 +29,7 @@ const MainPage = () => {
       }
     }
   }
+  console.log(dataList)
 
   return (
     <>

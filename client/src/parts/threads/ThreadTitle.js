@@ -1,4 +1,4 @@
-const ThreadCommentsTitle = (props) => {
+const ThreadTitle = (props) => {
   return (
     <h2>
       <span className="threadTitleSpan">No{props.title_id}</span>
@@ -6,4 +6,4 @@ const ThreadCommentsTitle = (props) => {
     </h2>
   );
 };
-export default ThreadCommentsTitle;
+export default ThreadTitle;

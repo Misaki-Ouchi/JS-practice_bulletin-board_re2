@@ -17,6 +17,7 @@ const AThreadsArea = (props) => {
         title={props.title}
         readAll={props.readAll}
         login={props.login}
+        comments={props.comments}
       />
     </>
   );

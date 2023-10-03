@@ -10,7 +10,9 @@ const SideMenus = (props) => {
             <Link to="newTitle">新規スレッドを書く</Link>
           </p>
           <p>
-            <Link to="login">ログイン</Link>
+            <Link
+              to="login"
+            >ログイン</Link>
           </p>
           <p>
             <Link to="signup">新規ユーザー登録</Link>
