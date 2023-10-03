@@ -49,28 +49,28 @@ app.get("/api/get/comments", (req, res) => {
     return res.json(result);
   });
 });
-// 指定タイトルIDのコメント
-app.get("/api/get/comments/:id", (req, res) => {
-  const sql = `SELECT * FROM comments WHERE title_id = ${req.params.id}`;
-  con.query(sql, function (err, result) {
-    console.log(result);
-    if (err) {
-      return res.json("Error");
-    }
-    return res.json(result);
-  });
-});
-// 指定タイトルIDのタイトル
-app.get("/api/get/titles/:id", (req, res) => {
-  const sql = `SELECT * FROM titles WHERE id = ${req.params.id}`;
-  con.query(sql, function (err, result) {
-    console.log(result);
-    if (err) {
-      return res.json("Error");
-    }
-    return res.json(result);
-  });
-});
+// // 指定タイトルIDのコメント
+// app.get("/api/get/comments/:id", (req, res) => {
+//   const sql = `SELECT * FROM comments WHERE title_id = ${req.params.id}`;
+//   con.query(sql, function (err, result) {
+//     console.log(result);
+//     if (err) {
+//       return res.json("Error");
+//     }
+//     return res.json(result);
+//   });
+// });
+// // 指定タイトルIDのタイトル
+// app.get("/api/get/titles/:id", (req, res) => {
+//   const sql = `SELECT * FROM titles WHERE id = ${req.params.id}`;
+//   con.query(sql, function (err, result) {
+//     console.log(result);
+//     if (err) {
+//       return res.json("Error");
+//     }
+//     return res.json(result);
+//   });
+// });
 app.get("/api/get/likes", (req, res) => {
   const sql = "SELECT * FROM likes";
   con.query(sql, function (err, result, fields) {
@@ -139,10 +139,10 @@ app.post("/postComment/titles/:id", (req, res) => {
     return res.json(result);
   });
 });
-
+// タイトル投稿
 app.post("/postTitle/titles", (req, res) => {
-  const sql = `INSERT INTO titles (id, title, count, post_time ) VALUES (0, ?, 1, ?)`;
-  const values = [req.body.title, req.body.post_time];
+  const sql = `INSERT INTO titles (id, title, count, post_time ) VALUES (?, ?, 1, ?)`;
+  const values = [req.body.title_id, req.body.title, req.body.post_time];
   con.query(sql, values, function (err, result) {
     console.log(result);
     if (err) {

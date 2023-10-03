@@ -4,8 +4,8 @@ import axios from "axios";
 import { DataList } from "./../../AppSub";
 
 const NewTitle = () => {
-  const dataList = useContext(DataList)
-  const titlesLen = dataList.length
+  const dataList = useContext(DataList);
+  const titlesLen = dataList.length;
 
   const initialValues = {
     title: "",
@@ -29,17 +29,18 @@ const NewTitle = () => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+
     // タイトル、日時情報の追加
     const date = new Date();
     const month = date.getMonth() + 1;
     const week = ["日", "月", "火", "水", "木", "金", "土"];
-    let min = date.getMinutes()
+    let min = date.getMinutes();
     if (min < 10) {
-      min = min + "0"
+      min = min + "0";
     }
     let mil = Math.round(date.getMilliseconds() / 10);
     if (mil < 10) {
-      mil = mil + "0"
+      mil = mil + "0";
     }
     const a =
       date.getFullYear() +
@@ -50,15 +51,9 @@ const NewTitle = () => {
       "(" +
       week[date.getDay()] +
       ")";
-    const b =
-      date.getHours() +
-      ":" +
-      min +
-      ":" +
-      date.getSeconds() +
-      "." +
-      mil;
+    const b = date.getHours() + ":" + min + ":" + date.getSeconds() + "." + mil;
     const time = `${a} ${b}`;
+
     formValues.title_id = titlesLen + 1;
     formValues.post_time = date.getTime();
     formValues.time = time;

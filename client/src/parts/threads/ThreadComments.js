@@ -19,7 +19,7 @@ const ThreadComments = (props) => {
     {props.comments.map((val, index) => {
        return (
         val.comment_count !== 1 &&
-        val.comment_count >= props.comment_count - props.count && (
+        val.comment_count > props.comment_count - props.count && (
           <li key={index}>
             <h3>
               {val.comment_count} 名前：{val.name}：{val.time}
