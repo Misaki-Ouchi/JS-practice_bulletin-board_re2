@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DataList } from "./../../AppSub";
+import { DataList } from "../../Router";
 import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {

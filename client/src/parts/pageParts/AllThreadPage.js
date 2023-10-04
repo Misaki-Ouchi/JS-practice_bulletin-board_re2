@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import TopTitle from "../dom/Header";
 import Footer from "../dom/Footer";
 import AThreadsArea from "../threads/AThreadsArea";
-import { DataList } from "./../../AppSub";
+import { DataList } from "../../Router";
 
 const AllThreadPage = (props) => {
   let dataList = useContext(DataList);

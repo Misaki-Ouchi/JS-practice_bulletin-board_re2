@@ -74,7 +74,10 @@ app.get("/api/get/comments", (req, res) => {
 app.get("/api/get/likes", (req, res) => {
   const sql = "SELECT * FROM likes";
   con.query(sql, function (err, result, fields) {
-    res.send(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
   });
 });
 
@@ -105,6 +108,32 @@ app.post("/login", (req, res) => {
     } else {
       return res.json("Failed");
     }
+  });
+});
+// コメント編集
+app.post("/editComment/comments/:id", (req, res) => {
+  const sql = `UPDATE comments SET message = ? WHERE id = ${req.params.id}`;
+  con.query(sql, [req.body.message], function (err, result) {
+    console.log(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
+  });
+});
+
+// コメント削除(タイトルデータも編集)
+app.post("/DeleteComment/:id", (req, res) => {
+  // const sql = `DELETE FROM comments WHERE id = ${req.params.id}`;
+  const sql = `DELETE FROM comments WHERE id = ${req.params.id};
+  UPDATE titles SET count = count - 1 WHERE id = ${req.params.id}`;
+  con.query(sql, function (err, result) {
+    console.log(req.params.id);
+    console.log(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
   });
 });
 

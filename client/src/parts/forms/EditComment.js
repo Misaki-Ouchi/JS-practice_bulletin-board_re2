@@ -1,50 +1,84 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+// import "react-confirm-alert/src/react-confirm-alert.css";
+import "./../../confirm-alert-css.css";
 import axios from "axios";
+import DeleteBtn from "../links&btns/DeleteBtn";
 
 const EditComment = (props) => {
+  const navigate = useNavigate();
+  const editData = props.editData;
   const initialValues = {
-    title_id: props.title_id,
-    message: props.message
+    name: editData.name,
+    email: "",
+    title_id: editData.title_id,
+    message: editData.message,
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const navigate = useNavigate();
+  const [isDelete, setIsDelete] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
+  // 削除確認ダイアログ
+  const confirm = () => {
+    confirmAlert({
+      title: "",
+      message: "本当に削除しますか？",
+      buttons: [
+        {
+          label: "はい",
+          onClick: () => {
+            alert("投稿が削除されました");
+            setDeleteClicked(true); // 削除コンポーネント発火
+          },
+        },
+        {
+          label: "いいえ",
+          // onClick: () => ()
+        },
+      ],
+    });
+  };
+  const deleteClick = () => {
+    setIsDelete(true); // 削除ボタンクリック
+    setFormErrors(validate(formValues)); // バリデーションチェック
+    console.log(formErrors)
+    if (Object.keys(formErrors).length === 0 && isDelete) {
+      confirm();
+    }
+  };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
-    
+    setIsSubmit(true); // 編集ボタンクリック
+    setFormErrors(validate(formValues)); // バリデーションチェック
+    e.preventDefault()
     // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
         .post(
-          `http://localhost:3000/postComment/comments/${props.id}`,
+          `http://localhost:3000/editComment/comments/${editData.id}`,
           formValues
-      )
+        )
+        // 前ページに戻る
+        .then((res) => navigate("/"))
         // フォームクリア
         .then(setFormValues(initialValues))
-        // 前ページに戻る
-        .then((res) => navigate(-1))
         .catch((err) => console.log(err));
     }
   };
   const validate = (values) => {
     const errors = {};
-    const regex =
-      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
     if (!values.name) {
       errors.name = "名前を入力してください。";
     }
     if (!values.email) {
-      errors.email = "ID（メールアドレス）を入力してください。";
-    } else if (!regex.test(values.email)) {
+      errors.email = "メールアドレスを入力してください。";
+    } else if (values.email !== editData.email) {
       errors.email = "正しいメールアドレスを入力してください。";
     }
     if (!values.message) {
@@ -68,6 +102,7 @@ const EditComment = (props) => {
                   name="name"
                   value={formValues.name}
                   onChange={(e) => handleChange(e)}
+                  disabled
                 />
                 <br />
                 <span className="errorMsg">{formErrors.name}</span>
@@ -99,7 +134,16 @@ const EditComment = (props) => {
               <p className="errorMsg">{formErrors.message}</p>
             </div>
           </div>
-          <button className="submitButton">書き込む</button>
+          <div className="threadBtnLinks">
+            <span onClick={deleteClick} className="deleteBtn">
+              <DeleteBtn
+                clicked={deleteClicked}
+                comment_id={editData.id}
+                title_id={editData.title_id}
+              />
+            </span>
+            <button className="submitButton">編集</button>
+          </div>
         </form>
       </div>
     </div>

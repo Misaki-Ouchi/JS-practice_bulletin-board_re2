@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from "axios";
-import { DataList } from "./../../AppSub";
+import { DataList } from "../../Router";
 
 const NewTitle = () => {
   const dataList = useContext(DataList);
@@ -70,7 +70,6 @@ const NewTitle = () => {
         .then()
         .catch((err) => console.log(err));
     }
-    console.log(formValues);
   };
   const validate = (values) => {
     const errors = {};

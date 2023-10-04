@@ -14,7 +14,6 @@ const SignUpForm = () => {
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
-    e.preventDefault(); // 自動更新無効化
     setFormErrors(validate(formValues));
     setIsSubmit(true);
     if (Object.keys(formErrors).length === 0 && isSubmit) {

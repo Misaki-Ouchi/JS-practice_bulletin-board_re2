@@ -12,7 +12,7 @@ const ThreadBtnLinks = (props) => {
   return (
     <>
       <div className="threadBtnLinks">
-        <button onClick={() => handleClick()}>書き込む</button>
+        <button className="showNewCommentsBtn" onClick={() => handleClick()}>書き込む</button>
         {props.login && <LikesTitleBtn title_id={props.title_id} />}
         {props.readAll && (
           <ReadAllLink

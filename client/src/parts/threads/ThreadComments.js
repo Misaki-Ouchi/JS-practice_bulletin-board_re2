@@ -1,5 +1,6 @@
 // props comments「コメント一覧」、count「1コメ以外のコメント数」
 // 1コメと最新count個のコメントを表示
+import EditBtn from "../links&btns/EditBtn";
 
 const ThreadComments = (props) => {
   return (
@@ -9,7 +10,8 @@ const ThreadComments = (props) => {
         val.comment_count === 1 && (
           <li key={index}>
             <h3>
-            {val.comment_count} 名前：{val.name}：{val.time}
+              {val.comment_count} 名前：{val.name}：{val.time}
+              <EditBtn comments_id={val.id} />
             </h3>
             <p>{val.message}</p>
           </li>
@@ -23,6 +25,7 @@ const ThreadComments = (props) => {
           <li key={index}>
             <h3>
               {val.comment_count} 名前：{val.name}：{val.time}
+              <EditBtn comments_id={val.id} />
             </h3>
             <p>{val.message}</p>
           </li>

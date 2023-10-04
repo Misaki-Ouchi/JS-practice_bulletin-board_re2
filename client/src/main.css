@@ -8,9 +8,15 @@ main {
 p, a, span, label {
   font-size: 0.85rem;
 }
-a {
+/* リンク、一部ボタン */
+a, .deleteBtn, .showNewCommentsBtn {
+  cursor: pointer;
   text-decoration: none;
   color: #00f;
+}
+.showNewCommentsBtn {
+  border: none;
+  background-color: transparent;
 }
 button:hover,
 a:hover {
@@ -156,9 +162,16 @@ footer {
 /*-------------------------
   スレ内ボタン・リンク
 -------------------------*/
+.editBtn {
+  margin-left: 1rem;
+  font-size: 0.75rem;
+}
 .threadBtnLinks {
   display: flex;
   gap: 1rem;
   justify-content: end;
   align-items: center;
+}
+.threadBtnLinks .submitButton {
+  margin: 0;
 }
