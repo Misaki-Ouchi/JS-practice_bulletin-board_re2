@@ -13,7 +13,10 @@ const ThreadBtnLinks = (props) => {
     <>
       <div className="threadBtnLinks">
         <button className="showNewCommentsBtn" onClick={() => handleClick()}>書き込む</button>
-        {props.login && <LikesTitleBtn title_id={props.title_id} />}
+        <LikesTitleBtn
+          title_id={props.title_id}
+          disabled={props.login}
+        />
         {props.readAll && (
           <ReadAllLink
             title_id={props.title_id}

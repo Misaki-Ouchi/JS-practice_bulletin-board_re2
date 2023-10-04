@@ -15,11 +15,6 @@ import { Titles, Comments } from "./App";
 export const DataList = createContext();
 
 const AppSub = () => {
-  // const state = {
-  //   count: 0,               // 表示コメント数
-  //   isLoggedIn: false,      // ログイン状態
-  //   showReadAllLink: true,  // 全部読むリンク
-  // }
   const titles = useContext(Titles);
   const comments = useContext(Comments);
   const dataList = [];

@@ -5,16 +5,25 @@ main {
   max-width: 800px;
   margin: auto;
 }
-p, a, span, label {
+p,
+a,
+span,
+label {
   font-size: 0.85rem;
 }
 /* リンク、一部ボタン */
-a, .deleteBtn, .showNewCommentsBtn {
+a,
+.deleteBtn,
+.showNewCommentsBtn,
+.LogOutBtn,
+.likesTitleBtn {
   cursor: pointer;
   text-decoration: none;
   color: #00f;
 }
-.showNewCommentsBtn {
+.showNewCommentsBtn,
+.LogOutBtn,
+.likesTitleBtn {
   border: none;
   background-color: transparent;
 }
@@ -22,7 +31,8 @@ button:hover,
 a:hover {
   cursor: pointer;
 }
-a h1 { /* topTitle */
+a h1 {
+  /* topTitle */
   color: #000;
 }
 h1 {
@@ -91,7 +101,6 @@ footer {
   padding: 1rem;
   text-align: center;
 }
-
 
 /*-------------------------
   ハンバーガーメニュー

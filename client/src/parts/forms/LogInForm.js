@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ const LogInForm = () => {
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
@@ -14,20 +14,23 @@ const LogInForm = () => {
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
+    e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true)
+    setIsSubmit(true);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
           if (res.data !== "Failed") {
-            console.log(res.data)
-            navigate('/')
+            localStorage.setItem("loginUser", JSON.stringify(res.data[0]))
+            const item = localStorage.getItem("loginUser")
+            console.log(JSON.parse(item))
+            navigate("/");
           } else {
-            alert("No record existed")
+            alert("No record existed");
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
   const validate = (values) => {
