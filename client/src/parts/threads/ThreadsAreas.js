@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import { DataList } from "../../Router";
 import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {
-  const dataList = useContext(DataList);
+  const dataList = props.dataList;
   return (
     <div className="thread">
       <div className="threadWrap">

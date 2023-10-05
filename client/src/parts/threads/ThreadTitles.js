@@ -1,16 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Titles } from "./../../App";
+// import { Titles } from "./../../App";
 
-function ThreadTitles() {
-  const titles = useContext(Titles);
-  titles.map((val) => {
-    return (val.url = "/allThread/" + val.id);
-  });
+function ThreadTitles(props) {
 
   return (
     <div className="threadTitles">
-      {titles.map((val, index) => {
+      {props.titles.map((val, index) => {
         return (
           <Link to={val.url} key={index}>
             {val.title}({val.count}),

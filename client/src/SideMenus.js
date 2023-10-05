@@ -4,12 +4,12 @@ import LogOutBtn from "./parts/links&btns/LogOutBtn";
 const SideMenus = (props) => {
   let userName;
   let login;
-  const value = localStorage.getItem("loginUser");
-  if (!value) {
+  const userValue = localStorage.getItem("loginUser");
+  if (!userValue) {
     userName = "ゲスト";
     login = true;
   } else {
-    userName = JSON.parse(value).name;
+    userName = JSON.parse(userValue).name;
     login = false;
   }
 
@@ -21,6 +21,9 @@ const SideMenus = (props) => {
           <p>
             <Link to="newTitle">新規スレッドを書く</Link>
           </p>
+          <p>{!login && <Link
+            to="userLikes"
+          >お気に入り一覧</Link>}</p>
           <p>
             {login && <Link to="login">ログイン</Link>}
             {!login && <LogOutBtn />}

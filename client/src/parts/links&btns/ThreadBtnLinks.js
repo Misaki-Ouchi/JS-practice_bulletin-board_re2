@@ -15,7 +15,6 @@ const ThreadBtnLinks = (props) => {
         <button className="showNewCommentsBtn" onClick={() => handleClick()}>書き込む</button>
         <LikesTitleBtn
           title_id={props.title_id}
-          disabled={props.login}
         />
         {props.readAll && (
           <ReadAllLink

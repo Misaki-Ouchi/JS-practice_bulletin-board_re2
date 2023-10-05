@@ -82,7 +82,6 @@ app.post("/login", (req, res) => {
       return res.json("Error");
     }
     if (result.length > 0) {
-      // return res(result);
       return res.json(result);
     } else {
       return res.json("Failed");
@@ -161,10 +160,37 @@ app.post("/postTitle/titles", (req, res) => {
   });
 });
 
+// お気に入り登録確認
+app.post("/likes/confirm", (req, res) => {
+  const sql = "SELECT * FROM likes WHERE user_id = ? AND title_id = ?";
+  const values = [req.body.user_id, req.body.title_id];
+  con.query(sql, values, function (err, result) {
+    console.log("result:", result);
+    if (err) {
+      return res.json("Error");
+    }
+    if (result.length > 0) {
+      return res.json("already");
+    } else {
+      return res.json("yet");
+    }
+  });
+});
 // お気に入り登録
-app.post("/likes", (req, res) => {
-  const sql =
-    "INSERT INTO likes (id, user_id, title_id ) VALUES (0, ?, ?)";
+app.post("/likes/register", (req, res) => {
+  const sql = "INSERT INTO likes (id, user_id, title_id ) VALUES (0, ?, ?)";
+  const values = [req.body.user_id, req.body.title_id];
+  con.query(sql, values, function (err, result) {
+    console.log(result)
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
+  });
+});
+// お気に入り解除
+app.post("/likes/delete", (req, res) => {
+  const sql = "DELETE FROM likes WHERE user_id = ? AND title_id = ?";
   const values = [req.body.user_id, req.body.title_id];
   con.query(sql, values, function (err, result) {
     console.log(result)

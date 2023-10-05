@@ -27,6 +27,10 @@ a,
   border: none;
   background-color: transparent;
 }
+.likesTitleBtn[disabled] {
+  color: #333;
+  cursor: auto;
+}
 button:hover,
 a:hover {
   cursor: pointer;

@@ -19,6 +19,10 @@ const AppSub = () => {
   const comments = useContext(Comments);
   const dataList = [];
 
+  // タイトルにurlデータ挿入
+  titles.map((val) => {
+    return (val.url = "/allThread/" + val.id);
+  });
   // dataListに{titleData(タイトルデータ), comments(コメント一覧)}を格納
   let num = 1
   for (let i = 0; i < titles.length; i++) {
