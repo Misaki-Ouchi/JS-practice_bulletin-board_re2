@@ -21,7 +21,7 @@ const LikesTitleBtn = (props) => {
     user_id: userId,
   };
   // ログイン時
-  if (value) {
+  if (value && value !== "undefined") {
     userId = JSON.parse(value).user_id;
     values.user_id = userId
     // お気に入り登録済みか確認

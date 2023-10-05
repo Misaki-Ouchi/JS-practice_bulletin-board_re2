@@ -14,12 +14,14 @@ const SignUpForm = () => {
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
+    e.preventDefault()
     setFormErrors(validate(formValues));
     setIsSubmit(true);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
         .post("http://localhost:3000/users", formValues)
         .then((res) => {
+          localStorage.setItem("loginUser", JSON.stringify(formValues))
           navigate("/successSignUp");
         })
         .catch(err => console.log(err));

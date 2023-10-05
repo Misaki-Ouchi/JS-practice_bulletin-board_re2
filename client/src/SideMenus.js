@@ -16,9 +16,8 @@ const SideMenus = (props) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => {
     setIsActive(!isActive)
-    console.log(isActive)
   }
-  
+
   return (
     <>
       <div

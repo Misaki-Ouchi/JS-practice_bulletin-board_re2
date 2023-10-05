@@ -48,7 +48,6 @@ const EditComment = (props) => {
   const deleteClick = () => {
     setIsDelete(true); // 削除ボタンクリック
     setFormErrors(validate(formValues)); // バリデーションチェック
-    console.log(formErrors)
     if (Object.keys(formErrors).length === 0 && isDelete) {
       confirm();
     }
@@ -56,7 +55,7 @@ const EditComment = (props) => {
   const handleSubmit = (e) => {
     setIsSubmit(true); // 編集ボタンクリック
     setFormErrors(validate(formValues)); // バリデーションチェック
-    e.preventDefault()
+    e.preventDefault();
     // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       axios
@@ -114,7 +113,6 @@ const EditComment = (props) => {
                   id="email"
                   type="text"
                   name="email"
-                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />
                 <p className="errorMsg">{formErrors.email}</p>

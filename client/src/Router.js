@@ -1,5 +1,7 @@
 import React, { useContext, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./parts/dom/Header";
+import Footer from "./parts/dom/Footer";
 import MainPage from "./MainPage";
 import LogInPage from "./parts/pageParts/LogInPage";
 import SignUpForm from "./parts/pageParts/SignUpPage";
@@ -41,7 +43,10 @@ const AppSub = () => {
   return (
     <DataList.Provider value={dataList}>
       <BrowserRouter>
+        
+      <Header />
         <SideMenus />
+        <main>
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
           <Route path="newTitle" element={<NewTitlePage />}></Route>
@@ -55,6 +60,8 @@ const AppSub = () => {
           <Route path="allThread/:id" element={<AllThreadPage />}></Route>
           <Route path="editComment/:id" element={<EditCommentPage />}></Route>
         </Routes>
+        </main>
+        <Footer />
       </BrowserRouter>
     </DataList.Provider>
   );

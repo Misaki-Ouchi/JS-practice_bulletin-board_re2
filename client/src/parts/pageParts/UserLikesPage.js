@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import TopTitle from "../dom/Header";
 import ThreadTitles from "./../threads/ThreadTitles";
 import ThreadsAreas from "./../threads/ThreadsAreas";
-import Footer from "../dom/Footer";
 import { Likes } from "./../../App";
 import { Titles } from "./../../App";
 import { DataList } from "../../Router";
@@ -44,11 +42,9 @@ const UserLikesPage = (props) => {
 
   return (
     <>
-      <TopTitle />
       <h2>{userName}さんのお気に入りスレッド一覧</h2>
       <ThreadTitles titles={newTitles} />
       <ThreadsAreas count="4" dataList={newList} />
-      <Footer />
     </>
   );
 };

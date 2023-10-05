@@ -2,32 +2,38 @@ body {
   margin: 0;
 }
 main {
+  width: 90%;
   max-width: 800px;
   margin: auto;
 }
-a h1 {
-  /* topTitle */
-  color: #000;
+header {
+  width: 60%;
+  margin: 2rem auto;
 }
 h1 {
   font-size: 1.2rem;
+  color: #000;
   background-color: #ada;
   padding: 1rem 0;
-  margin: 2rem auto;
-  width: 80%;
   text-align: center;
 }
 h2 {
   font-size: 1rem;
+  text-align: center;
 }
 h3 {
   font-size: 0.9rem;
+}
+h4 {
+  font-size: 0.9rem;
+  margin: 0;
 }
 ul {
   padding: 0;
 }
 li {
   list-style: none;
+  margin-bottom: 2rem;
 }
 input,
 textarea {
@@ -80,7 +86,6 @@ a,
 .formContainer,
 .sideMenu {
   background-color: #ddd;
-  width: 80%;
   padding: 0.5rem;
   margin: 0 auto;
 }
@@ -158,14 +163,16 @@ a,
 .sideMenu {
   position: fixed;
   top: 1rem;
-  right: -100%;
+  right: -50%;
   width: 30%;
+  max-width: 13rem;
+  background-color: #d6d6d6;
   padding-top: 2rem;
   z-index: 999;
   transition: all .6s;
 }
 .sideMenu.active {
-  right: 1rem;
+  right: 0;
 }
 .sideItems {
   text-align: center;
@@ -183,7 +190,6 @@ a,
   text-align: center;
 }
 .uniForm {
-  width: 80%;
   margin: 0 auto 2rem;
 }
 .formField {

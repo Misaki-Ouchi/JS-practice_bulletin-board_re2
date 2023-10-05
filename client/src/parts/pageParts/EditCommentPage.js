@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import TopTitle from "../dom/Header";
 import ThreadTitle from "../threads/ThreadTitle";
 import ThreadComments from "../threads/ThreadComments";
 import EditComment from "../forms/EditComment";
-import Footer from "../dom/Footer";
 import { DataList } from "../../Router";
 
 const EditCommentPage = () => {
@@ -25,8 +23,6 @@ const EditCommentPage = () => {
 
   return (
     <>
-      <TopTitle />
-
       <div className="thread">
         <div className="threadWrap">
           <div className="threadsArea">
@@ -39,7 +35,6 @@ const EditCommentPage = () => {
               count={editData[0].count}
               comment_count={editData[0].comment_count}
             />
-            {/* <ThreadComments title_id="editData.title_id" /> */}
             <EditComment
               title={editTitle.titleData.title}
               editData={editData[0]}
@@ -47,7 +42,6 @@ const EditCommentPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

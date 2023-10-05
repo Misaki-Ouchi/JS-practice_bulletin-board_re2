@@ -23,11 +23,9 @@ const LogInForm = () => {
         .then((res) => {
           if (res.data !== "Failed") {
             localStorage.setItem("loginUser", JSON.stringify(res.data[0]))
-            const item = localStorage.getItem("loginUser")
-            console.log(JSON.parse(item))
             navigate("/");
           } else {
-            alert("No record existed");
+            alert("ID（メールアドレス）またはパスワードが正しくありません");
           }
         })
         .catch((err) => console.log(err));

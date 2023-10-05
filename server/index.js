@@ -66,6 +66,7 @@ app.post("/users", (req, res) => {
     "INSERT INTO users( user_id, name, email, password ) VALUES (0, ?, ?, ?)";
   const values = [req.body.name, req.body.email, req.body.password];
   con.query(sql, values, function (err, result) {
+    console.log(result);
     if (err) {
       return res.json("Error");
     }

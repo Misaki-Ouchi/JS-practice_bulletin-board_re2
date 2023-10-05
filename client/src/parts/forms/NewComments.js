@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const NewComments = (props) => {
+  let nameValue = ""
+  let emailValue = ""
+  // ユーザー情報取得
+  const userValue = localStorage.getItem("loginUser");
+  
   const initialValues = {
     title_id: props.title_id,
     name: "",
@@ -11,6 +16,14 @@ const NewComments = (props) => {
     post_time: "",
     time: "",
   };
+  if (userValue) {
+    const userName = JSON.parse(userValue).name;
+    const userEmail = JSON.parse(userValue).email;
+    // nameValue = userName
+    // emailValue = userEmail
+    initialValues.name = userName
+    initialValues.email = userEmail
+  }
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
@@ -19,6 +32,7 @@ const NewComments = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+    console.log(formValues)
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,7 +94,7 @@ const NewComments = (props) => {
       errors.name = "名前を入力してください。";
     }
     if (!values.email) {
-      errors.email = "ID（メールアドレス）を入力してください。";
+      errors.email = "メールアドレスを入力してください。";
     } else if (!regex.test(values.email)) {
       errors.email = "正しいメールアドレスを入力してください。";
     }
@@ -103,6 +117,7 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
+                  // defaultValue={nameValue}
                   value={formValues.name}
                   onChange={(e) => handleChange(e)}
                 />
@@ -116,6 +131,7 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
+                  // defaultValue={emailValue}
                   value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />

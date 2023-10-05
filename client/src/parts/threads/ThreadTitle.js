@@ -1,9 +1,9 @@
 const ThreadTitle = (props) => {
   return (
-    <h2>
+    <h3>
       <span className="threadTitleSpan">No{props.title_id}</span>
       {props.title}
-    </h2>
+    </h3>
   );
 };
 export default ThreadTitle;
