@@ -11,6 +11,7 @@ import UserLikesPage from "./parts/pageParts/UserLikesPage";
 import AllThreadPage from "./parts/pageParts/AllThreadPage";
 import EditCommentPage from "./parts/pageParts/EditCommentPage";
 import { Titles, Comments } from "./App";
+import SideMenus from "./SideMenus";
 
 export const DataList = createContext();
 
@@ -24,22 +25,23 @@ const AppSub = () => {
     return (val.url = "/allThread/" + val.id);
   });
   // dataListに{titleData(タイトルデータ), comments(コメント一覧)}を格納
-  let num = 1
+  let num = 1;
   for (let i = 0; i < titles.length; i++) {
     dataList[i] = { titleData: titles[i], comments: [] };
     for (let j = 0; j < comments.length; j++) {
       if (titles[i].id === comments[j].title_id) {
         dataList[i].comments.push(comments[j]);
-        comments[j]["comment_count"] = num
-        num++
+        comments[j]["comment_count"] = num;
+        num++;
       }
     }
-    num = 1
+    num = 1;
   }
 
   return (
     <DataList.Provider value={dataList}>
       <BrowserRouter>
+        <SideMenus />
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
           <Route path="newTitle" element={<NewTitlePage />}></Route>

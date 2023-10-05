@@ -5,36 +5,6 @@ main {
   max-width: 800px;
   margin: auto;
 }
-p,
-a,
-span,
-label {
-  font-size: 0.85rem;
-}
-/* リンク、一部ボタン */
-a,
-.deleteBtn,
-.showNewCommentsBtn,
-.LogOutBtn,
-.likesTitleBtn {
-  cursor: pointer;
-  text-decoration: none;
-  color: #00f;
-}
-.showNewCommentsBtn,
-.LogOutBtn,
-.likesTitleBtn {
-  border: none;
-  background-color: transparent;
-}
-.likesTitleBtn[disabled] {
-  color: #333;
-  cursor: auto;
-}
-button:hover,
-a:hover {
-  cursor: pointer;
-}
 a h1 {
   /* topTitle */
   color: #000;
@@ -73,6 +43,36 @@ footer {
   padding: 2rem 0;
   margin-top: 3rem;
 }
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+p,
+a,
+span,
+label {
+  font-size: 0.85rem;
+}
+/* リンク、一部ボタン */
+a,
+.deleteBtn,
+.showNewCommentsBtn,
+.LogOutBtn,
+.likesTitleBtn {
+  cursor: pointer;
+  text-decoration: none;
+  color: #00f;
+}
+.showNewCommentsBtn,
+.LogOutBtn,
+.likesTitleBtn {
+  border: none;
+  background-color: transparent;
+}
+.likesTitleBtn[disabled] {
+  color: #333;
+  cursor: auto;
+}
 
 .writeNewTitle,
 .threadsArea,
@@ -109,9 +109,63 @@ footer {
 /*-------------------------
   ハンバーガーメニュー
 -------------------------*/
+.side_btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-bottom: 1rem;
+  z-index: 9999;
+}
+/* ×に変化 */
+.side_btn span {
+  display: inline-block;
+  position: absolute;
+  left: 14px;
+  width: 45%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #666;
+  transition: all .4s;
+}
+.side_btn span:nth-of-type(1) {
+  top: 15px;
+}
+.side_btn span:nth-of-type(2) {
+  top: 23px;
+}
+.side_btn span:nth-of-type(3) {
+  top: 31px;
+}
+.side_btn.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  width: 45%;
+  transform: translateY(6px) rotate(-45deg);
+}
+.side_btn.active span:nth-of-type(2) {
+  opacity: 0;
+}
+.side_btn.active span:nth-of-type(3) {
+  top: 30px;
+  left: 18px;
+  width: 45%;
+  transform: translateY(-6px) rotate(45deg);
+}
+/* メニュー中身 */
 .sideMenu {
+  position: fixed;
+  top: 1rem;
+  right: -100%;
   width: 30%;
-  margin-right: 0;
+  padding-top: 2rem;
+  z-index: 999;
+  transition: all .6s;
+}
+.sideMenu.active {
+  right: 1rem;
 }
 .sideItems {
   text-align: center;
