@@ -2,7 +2,6 @@ import AThreadsArea from "./AThreadsArea";
 
 const ThreadsAreas = (props) => {
   const dataList = props.dataList;
-  console.log(dataList)
   return (
     <>
       <div className="thread">

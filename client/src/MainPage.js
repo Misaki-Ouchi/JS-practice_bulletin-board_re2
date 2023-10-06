@@ -8,7 +8,8 @@ import { DataList } from "./Router";
 const MainPage = () => {
   const dataList = useContext(DataList);
   const titles = useContext(Titles);
-  
+  console.log(dataList)
+
   const [page, setPage] = useState(0);
   let pageNum = [];
   const handlePage = (e) => {
@@ -33,34 +34,40 @@ const MainPage = () => {
     }
     return newArr;
   };
-  let newList = splitArray(dataList, 5);
-  console.log(newList)
-  console.log(page)
-  console.log(newList[0])
+  // let newList = splitArray(dataList, 5);
+  // console.log(newList);
 
   return (
     <>
       <WriteNewTitle />
       <ThreadTitles titles={titles} />
-      <ThreadsAreas count="4" dataList={newList[page]} />
+      {/* <ThreadsAreas count="4" dataList={newList[page]} /> */}
 
       {page > 0 && (
-        <button onClick={handlePage} value="before">
+        <button className="pageBtn" onClick={handlePage} value="before">
           前へ
         </button>
       )}
       {pageNum.map((num, index) => {
-        return (
-          <button key={index} onClick={handlePage} value={num}>
+        return num < page + 9 (
+          <button
+            className="pageBtn"
+            key={index}
+            onClick={handlePage}
+            value={num}
+          >
             {num}
           </button>
         );
       })}
+      {pageNum.length > 10 && page < pageNum.length - 1 && (
+        <span>...</span>
+      )}
       {page < pageNum.length - 1 && (
-        <button onClick={handlePage} value="next">
+        <button className="pageBtn" onClick={handlePage} value="next">
           次へ
         </button>
-      )} 
+      )}
     </>
   );
 };

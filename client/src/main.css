@@ -64,7 +64,8 @@ a,
 .deleteBtn,
 .showNewCommentsBtn,
 .LogOutBtn,
-.likesTitleBtn {
+.likesTitleBtn,
+.pageBtn {
   cursor: pointer;
   text-decoration: none;
   color: #00f;
