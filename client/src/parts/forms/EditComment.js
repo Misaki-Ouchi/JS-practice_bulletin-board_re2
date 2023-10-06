@@ -9,6 +9,7 @@ import DeleteBtn from "../links&btns/DeleteBtn";
 const EditComment = (props) => {
   const navigate = useNavigate();
   const editData = props.editData;
+  console.log(editData)
   const initialValues = {
     name: editData.name,
     email: "",
@@ -35,7 +36,8 @@ const EditComment = (props) => {
           label: "はい",
           onClick: () => {
             alert("投稿が削除されました");
-            setDeleteClicked(true); // 削除コンポーネント発火
+            // setDeleteClicked(true); // 削除コンポーネント発火
+            deleteFunc();
           },
         },
         {
@@ -45,12 +47,24 @@ const EditComment = (props) => {
       ],
     });
   };
-  const deleteClick = () => {
+  const deleteClick = (e) => {
+    e.preventDefault();
     setIsDelete(true); // 削除ボタンクリック
     setFormErrors(validate(formValues)); // バリデーションチェック
     if (Object.keys(formErrors).length === 0 && isDelete) {
       confirm();
     }
+  };
+  // 投稿を削除
+  console.log(editData.title_id);
+  const deleteFunc = () => {
+    axios
+      .post(`http://localhost:3000/DeleteComment/${editData.id}`)
+      .catch((err) => console.log(err));
+    axios
+      .post(`http://localhost:3000/DeleteComment/titles/${editData.title_id}`)
+      .catch((err) => console.log(err))
+      .then((res) => navigate("/"));
   };
   const handleSubmit = (e) => {
     setIsSubmit(true); // 編集ボタンクリック
@@ -63,10 +77,10 @@ const EditComment = (props) => {
           `http://localhost:3000/editComment/comments/${editData.id}`,
           formValues
         )
-        // 前ページに戻る
-        .then((res) => navigate("/"))
         // フォームクリア
         .then(setFormValues(initialValues))
+        // 前ページに戻る
+        .then((res) => navigate("/"))
         .catch((err) => console.log(err));
     }
   };
@@ -133,13 +147,16 @@ const EditComment = (props) => {
             </div>
           </div>
           <div className="threadBtnLinks">
-            <span onClick={deleteClick} className="deleteBtn">
-              <DeleteBtn
+            {/* <span onClick={deleteClick} className="deleteBtn"> */}
+            {/* <DeleteBtn
                 clicked={deleteClicked}
                 comment_id={editData.id}
                 title_id={editData.title_id}
-              />
-            </span>
+              /> */}
+            <button onClick={(e) => deleteClick(e)} className="deleteBtn">
+              投稿を削除
+            </button>
+            {/* </span> */}
             <button className="submitButton">編集</button>
           </div>
         </form>

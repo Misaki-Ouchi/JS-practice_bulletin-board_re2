@@ -25,7 +25,6 @@ const MainPage = () => {
   };
   const splitArray = (array, cutNumber) => {
     const newArr = [];
-    console.log(dataList)
     let j = 1;
     for (let i = 0; i < array.length; i += cutNumber) {
       newArr.push(array.slice(i, i + cutNumber));
@@ -36,18 +35,15 @@ const MainPage = () => {
   };
   let newList = splitArray(dataList, 5);
   console.log(newList)
+  console.log(page)
+  console.log(newList[0])
 
   return (
     <>
       <WriteNewTitle />
       <ThreadTitles titles={titles} />
-      <ThreadsAreas count="4" dataList={dataList} />
+      <ThreadsAreas count="4" dataList={newList[page]} />
 
-        {/* {newList[page].map((list, index) => {
-          return (
-            <ThreadsAreas key={index} count="4" dataList={list} />
-          );
-        })} */}
       {page > 0 && (
         <button onClick={handlePage} value="before">
           前へ

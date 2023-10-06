@@ -68,10 +68,6 @@ a,
   cursor: pointer;
   text-decoration: none;
   color: #00f;
-}
-.showNewCommentsBtn,
-.LogOutBtn,
-.likesTitleBtn {
   border: none;
   background-color: transparent;
 }

@@ -1,12 +1,12 @@
-import ThreadComments from "../threads/ThreadComments";
+// import ThreadComments from "../threads/ThreadComments";
 
-const ThreadPage = (props) => {
+// const ThreadPage = (props) => {
 
-  return (
-    <>
-      <ThreadComments title_id="props.title_id"/>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <ThreadComments title_id="props.title_id"/>
+//     </>
+//   );
+// };
 
-export default ThreadPage;
+// export default ThreadPage;

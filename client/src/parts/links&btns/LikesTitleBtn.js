@@ -6,6 +6,7 @@ const LikesTitleBtn = (props) => {
   const [favorite, setFavorite] = useState("お気に入り");
   const [isDisabled, setIsDisabled] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
+  
   // 指定タイトルのお気に入りデータ取得
   let likes = useContext(Likes);
   likes = likes.filter((val) => {

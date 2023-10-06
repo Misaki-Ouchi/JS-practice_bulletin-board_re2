@@ -103,11 +103,21 @@ app.post("/editComment/comments/:id", (req, res) => {
 
 // コメント削除(タイトルデータも編集)
 app.post("/DeleteComment/:id", (req, res) => {
-  // const sql = `DELETE FROM comments WHERE id = ${req.params.id}`;
-  const sql = `DELETE FROM comments WHERE id = ${req.params.id};
-  UPDATE titles SET count = count - 1 WHERE id = ${req.params.id}`;
+  const sql = `DELETE FROM comments WHERE id = ${req.params.id}`;
   con.query(sql, function (err, result) {
     console.log(req.params.id);
+    console.log(result);
+    if (err) {
+      return res.json("Error");
+    }
+    return res.json(result);
+  });
+});
+// コメント削除(タイトルデータも編集)
+app.post("/DeleteComment/titles/:title_id", (req, res) => {
+  const sql = `UPDATE titles SET count = count - 1 WHERE id = ${req.params.title_id}`;
+  con.query(sql, function (err, result) {
+    console.log(req.params.title_id);
     console.log(result);
     if (err) {
       return res.json("Error");

@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const NewComments = (props) => {
-  let nameValue = ""
-  let emailValue = ""
+  let nameValue = "";
+  let emailValue = "";
   // ユーザー情報取得
   const userValue = localStorage.getItem("loginUser");
-  
+
   const initialValues = {
     title_id: props.title_id,
     name: "",
@@ -21,8 +21,8 @@ const NewComments = (props) => {
     const userEmail = JSON.parse(userValue).email;
     // nameValue = userName
     // emailValue = userEmail
-    initialValues.name = userName
-    initialValues.email = userEmail
+    initialValues.name = userName;
+    initialValues.email = userEmail;
   }
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -32,7 +32,7 @@ const NewComments = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    console.log(formValues)
+    console.log(formValues);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,13 +42,13 @@ const NewComments = (props) => {
     const date = new Date();
     const month = date.getMonth() + 1;
     const week = ["日", "月", "火", "水", "木", "金", "土"];
-    let min = date.getMinutes()
+    let min = date.getMinutes();
     if (min < 10) {
-      min = min + "0"
+      min = min + "0";
     }
     let mil = Math.round(date.getMilliseconds() / 10);
     if (mil < 10) {
-      mil = mil + "0"
+      mil = mil + "0";
     }
     const a =
       date.getFullYear() +
@@ -59,14 +59,7 @@ const NewComments = (props) => {
       "(" +
       week[date.getDay()] +
       ")";
-    const b =
-      date.getHours() +
-      ":" +
-      min +
-      ":" +
-      date.getSeconds() +
-      "." +
-      mil;
+    const b = date.getHours() + ":" + min + ":" + date.getSeconds() + "." + mil;
     const time = `${a} ${b}`;
     formValues.post_time = date.getTime();
     formValues.time = time;
@@ -79,7 +72,8 @@ const NewComments = (props) => {
         .post(
           `http://localhost:3000/postComment/titles/${props.title_id}`,
           formValues
-      )
+        )
+        .catch((err) => console.log(err))
         // フォームクリア
         .then(setFormValues(initialValues))
         .then((res) => navigate(`/allThread/${formValues.title_id}`))

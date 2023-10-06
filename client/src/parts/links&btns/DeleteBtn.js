@@ -7,11 +7,8 @@ const DeleteBtn = (props) => {
   const deleteFunc = () => {
     axios
       .post(`http://localhost:3000/DeleteComment/${props.comment_id}`)
-      .catch((err) => console.log(err));
-    axios
-      .post(`http://localhost:3000/DeleteComment/${props.title_id}`)
+      .catch((err) => console.log(err))
       .then((res) => navigate("/"))
-      .catch((err) => console.log(err));
   };
   if (props.clicked) {
     deleteFunc();
