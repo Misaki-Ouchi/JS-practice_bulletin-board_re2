@@ -13,8 +13,6 @@ const MainPage = () => {
 
   // ページネーション
   let pageNum = [];
-  // ボタン表示
-  let isDisabled = []
   // データリスト分割
   const splitArray = (array, cutNumber) => {
     const newArr = [];
@@ -27,7 +25,7 @@ const MainPage = () => {
     return newArr;
   };
   // 分割後データリスト
-  let newList = splitArray(dataList, 2);
+  let newList = splitArray(dataList, 1);
 
   // ページ遷移クリック後
   const handlePage = (e) => {
@@ -41,8 +39,9 @@ const MainPage = () => {
       setPage(value - 1);
     }
   };
-  console.log(newList)
-  console.log(page)
+  console.log(newList);
+  console.log(page);
+  console.log(pageNum[page] - 1);
 
   return (
     <>
@@ -56,20 +55,24 @@ const MainPage = () => {
             前へ
           </button>
         )}
+        {pageNum.length > 10 && page > 5 && <span>...</span>}
         {pageNum.map((num, index) => {
           return (
-            <button
-              className="pageBtn"
-              key={index}
-              onClick={handlePage}
-              value={num}
-              // disabled={isDisabled[page[1]]}
-            >
-              {num}
-            </button>
+            num >= page - 4 &&
+            num <= page + 5 && (
+              <button
+                className="pageBtn"
+                key={index}
+                onClick={handlePage}
+                value={num}
+                disabled={page === num - 1}
+              >
+                {num}
+              </button>
+            )
           );
         })}
-        {pageNum.length > 10 && page < pageNum.length - 1 && <span>...</span>}
+        {pageNum.length > 10 && page < pageNum.length - 5 && <span>...</span>}
         {page < pageNum.length - 1 && (
           <button className="pageBtn" onClick={handlePage} value="next">
             次へ
