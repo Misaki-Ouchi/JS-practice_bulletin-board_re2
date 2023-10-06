@@ -72,7 +72,8 @@ a,
   border: none;
   background-color: transparent;
 }
-.likesTitleBtn[disabled] {
+a[disabled],
+button[disabled] {
   color: #333;
   cursor: auto;
 }
@@ -244,4 +245,11 @@ a,
 }
 .threadBtnLinks .submitButton {
   margin: 0;
+}
+
+/*-------------------------
+  ページネーション
+-------------------------*/
+.pageBtnArea {
+  text-align: center;
 }

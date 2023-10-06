@@ -17,8 +17,6 @@ const con = mysql.createConnection({
   multipleStatements: true,
 });
 
-// 各データ取得
-// ユーザー一覧
 app.get("/api/get/users", (req, res) => {
   const sql = "SELECT * FROM users";
   con.query(sql, function (err, result, fields) {
@@ -101,7 +99,7 @@ app.post("/editComment/comments/:id", (req, res) => {
   });
 });
 
-// コメント削除(タイトルデータも編集)
+// コメント削除
 app.post("/DeleteComment/:id", (req, res) => {
   const sql = `DELETE FROM comments WHERE id = ${req.params.id}`;
   con.query(sql, function (err, result) {
@@ -113,7 +111,7 @@ app.post("/DeleteComment/:id", (req, res) => {
     return res.json(result);
   });
 });
-// コメント削除(タイトルデータも編集)
+// コメント削除(タイトルデータ編集)
 app.post("/DeleteComment/titles/:title_id", (req, res) => {
   const sql = `UPDATE titles SET count = count - 1 WHERE id = ${req.params.title_id}`;
   con.query(sql, function (err, result) {

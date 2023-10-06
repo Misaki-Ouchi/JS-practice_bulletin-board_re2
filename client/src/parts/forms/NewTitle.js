@@ -21,8 +21,8 @@ const NewTitle = () => {
   const initialValues = {
     title: "",
     title_id: "",
-    name: "",
-    email: "",
+    name: nameValue,
+    email: emailValue,
     message: "",
     post_time: "",
     time: "",
