@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LogOutBtn from "./parts/links&btns/LogOutBtn";
+import SearchTitle from "./parts/links&btns/SearchTitle";
 
 const SideMenus = (props) => {
   let userName;
   let login;
   const userValue = localStorage.getItem("loginUser");
+  const [isActive, setIsActive] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
   if (!userValue) {
     userName = "ゲスト";
     login = true;
@@ -13,10 +17,12 @@ const SideMenus = (props) => {
     userName = JSON.parse(userValue).name;
     login = false;
   }
-  const [isActive, setIsActive] = useState(false);
   const handleClick = () => {
-    setIsActive(!isActive)
-  }
+    setIsActive(!isActive);
+  };
+  const searchBtnClick = () => {
+    setIsClicked(!isClicked);
+  };
 
   return (
     <>
@@ -32,32 +38,34 @@ const SideMenus = (props) => {
         <div className="sideItems">
           <p>ようこそ {userName}さん</p>
           <p>
-            <Link
-              to="newTitle"
-              onClick={() => handleClick()}
-            >新規スレッドを書く</Link>
+            <Link to="newTitle" onClick={() => handleClick()}>
+              新規スレッドを書く
+            </Link>
           </p>
-          <p>{!login &&
-            <Link
-            to="userLikes"
-            onClick={() => handleClick()}
-          >お気に入り一覧</Link>}</p>
           <p>
-            {login &&
-              <Link
-              to="login"
-              onClick={() => handleClick()}>ログイン</Link>}
-            {!login &&
-              <LogOutBtn
-              onClick={() => handleClick()}
-              />}
+            {!login && (
+              <Link to="userLikes" onClick={() => handleClick()}>
+                お気に入り一覧
+              </Link>
+            )}
           </p>
-          <p>{login &&
-            <Link
-              to="signup"
-              onClick={() => handleClick()}
-            >新規ユーザー登録</Link>}</p>
-          <p>掲示板検索</p>
+          <p>
+            {login && (
+              <Link to="login" onClick={() => handleClick()}>
+                ログイン
+              </Link>
+            )}
+            {!login && <LogOutBtn onClick={() => handleClick()} />}
+          </p>
+          <p>
+            {login && (
+              <Link to="signup" onClick={() => handleClick()}>
+                新規ユーザー登録
+              </Link>
+            )}
+          </p>
+          <button onClick={() => searchBtnClick()}>掲示板検索</button>
+          {isClicked && <SearchTitle />}
         </div>
       </nav>
     </>

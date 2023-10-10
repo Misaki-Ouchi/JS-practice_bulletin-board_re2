@@ -13,6 +13,7 @@ function ThreadTitles(props) {
           </Link>
         );
       })}
+      <span>...</span>
     </div>
   );
 }

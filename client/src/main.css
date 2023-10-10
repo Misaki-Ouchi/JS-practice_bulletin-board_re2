@@ -59,13 +59,15 @@ span,
 label {
   font-size: 0.85rem;
 }
-/* リンク、一部ボタン */
+/* リンク、ボタン */
 a,
-.deleteBtn,
+button
+/* .deleteBtn,
 .showNewCommentsBtn,
 .LogOutBtn,
 .likesTitleBtn,
-.pageBtn {
+.pageBtn  */
+{
   cursor: pointer;
   text-decoration: none;
   color: #00f;
@@ -157,20 +159,49 @@ button[disabled] {
   width: 45%;
   transform: translateY(-6px) rotate(45deg);
 }
-/* メニュー中身 */
+/* サイドメニュー */
 .sideMenu {
   position: fixed;
   top: 1rem;
   right: -50%;
   width: 30%;
-  max-width: 13rem;
+  max-width: 15rem;
   background-color: #e5e5e5;
-  padding-top: 2rem;
+  box-shadow: 2px 2px 5px #333;
+  padding: 2rem 1rem 1rem;
   z-index: 999;
   transition: all .6s;
 }
 .sideMenu.active {
   right: 0;
+}
+.sideMenu .searchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: .5rem auto 0;
+}
+.sideMenu input {
+  height: 1.5rem;
+  padding: .2rem 0;
+}
+.sideMenu .searchBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+}
+.sideMenu img {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 1rem;
+  cursor: pointer;
 }
 .sideItems {
   text-align: center;

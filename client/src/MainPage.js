@@ -25,7 +25,7 @@ const MainPage = () => {
     return newArr;
   };
   // 分割後データリスト
-  let newList = splitArray(dataList, 1);
+  let newList = splitArray(dataList, 5);
 
   // ページ遷移クリック後
   const handlePage = (e) => {
@@ -39,9 +39,6 @@ const MainPage = () => {
       setPage(value - 1);
     }
   };
-  console.log(newList);
-  console.log(page);
-  console.log(pageNum[page] - 1);
 
   return (
     <>
@@ -50,11 +47,14 @@ const MainPage = () => {
       <ThreadsAreas count="4" dataList={newList[page]} />
 
       <div className="pageBtnArea">
-        {page > 0 && (
-          <button className="pageBtn" onClick={handlePage} value="before">
-            前へ
-          </button>
-        )}
+        <button
+          className="pageBtn"
+          value="before"
+          onClick={handlePage}
+          disabled={page === 0}
+        >
+          前へ
+        </button>
         {pageNum.length > 10 && page > 5 && <span>...</span>}
         {pageNum.map((num, index) => {
           return (
@@ -63,8 +63,8 @@ const MainPage = () => {
               <button
                 className="pageBtn"
                 key={index}
-                onClick={handlePage}
                 value={num}
+                onClick={handlePage}
                 disabled={page === num - 1}
               >
                 {num}
@@ -73,11 +73,14 @@ const MainPage = () => {
           );
         })}
         {pageNum.length > 10 && page < pageNum.length - 5 && <span>...</span>}
-        {page < pageNum.length - 1 && (
-          <button className="pageBtn" onClick={handlePage} value="next">
-            次へ
-          </button>
-        )}
+        <button
+          className="pageBtn"
+          value="next"
+          onClick={handlePage}
+          disabled={page === pageNum.length-1}
+        >
+          次へ
+        </button>
       </div>
     </>
   );
