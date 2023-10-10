@@ -1,22 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import createStore from "./redux/store/store";
 import App from "./App";
 import "./main.css";
 
-// import { Provider } from "react-redux";
-// import { configureStore } from "@reduxjs/toolkit";
-// import  {postsReducer}  from "./features/Posts";
-// const store = configureStore({
-//   reducer: {
-// posts: postsReducer
-//   },
-// })
+export const store = createStore()
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
     <App />
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );

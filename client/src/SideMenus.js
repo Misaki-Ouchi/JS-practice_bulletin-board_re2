@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector, userDispatch, userSelector } from "react-redux";
 import LogOutBtn from "./parts/links&btns/LogOutBtn";
 import SearchTitle from "./parts/links&btns/SearchTitle";
+// import initialState from "./redux/store/initialState";
+import { logInAction } from "./redux/users/actions";
 
 const SideMenus = (props) => {
   let userName;
@@ -9,6 +12,11 @@ const SideMenus = (props) => {
   const userValue = localStorage.getItem("loginUser");
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+
+  const dispatch = useDispatch()
+  const selector = useSelector( (state) => state )
+
+  console.log(selector.users)
 
   if (!userValue) {
     userName = "ゲスト";
@@ -66,6 +74,9 @@ const SideMenus = (props) => {
           </p>
           <button onClick={() => searchBtnClick()}>掲示板検索</button>
           {isClicked && <SearchTitle />}
+
+          <button onClick={() => dispatch(logInAction({userID: "1", userName: "aaa"}))}>logIn</button>
+
         </div>
       </nav>
     </>
