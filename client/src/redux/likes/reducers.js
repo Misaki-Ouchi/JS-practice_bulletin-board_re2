@@ -1,9 +1,9 @@
 import * as Actions from "./actions";
 import initialState from "../store/initialState";
 
-export const CommentsReducer = (state = initialState.comments, action) => {
+export const LikesReducer = (state = initialState.likes, action) => {
   switch (action.type) {
-    case Actions.Comments_Up:
+    case Actions.likesUp:
       return {
         ...state,
         ...action.payload,

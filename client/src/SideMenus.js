@@ -3,15 +3,22 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchTitle from "./parts/links&btns/SearchTitle";
 import { logOutAction } from "./redux/users/actions";
+import { getUserId } from "./redux/users/selectors";
+import { Comments_Up } from "./redux/comments/actions";
 
 const SideMenus = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
+  const isLoggedIn = selector.users.isLoggedIn;
+  const userName = selector.users.userName;
+  console.log(selector.comments)
+
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsActive(!isActive);
+    dispatch(Comments_Up)
   };
   const searchBtnClick = () => {
     setIsClicked(!isClicked);
@@ -29,37 +36,39 @@ const SideMenus = (props) => {
       </div>
       <nav className={`sideMenu ${isActive && "active"}`}>
         <div className="sideItems">
-          <p>ようこそ {selector.users.userName}さん</p>
+          <p>ようこそ {userName}さん</p>
           <p>
             <Link to="newTitle" onClick={() => handleClick()}>
               新規スレッドを書く
             </Link>
           </p>
           <p>
-            {!selector.users.isLoggedIn && (
+            {!isLoggedIn && (
               <Link to="userLikes" onClick={() => handleClick()}>
                 お気に入り一覧
               </Link>
             )}
           </p>
           <p>
-            {!selector.users.isLoggedIn && (
+            {!isLoggedIn && (
               <Link to="login" onClick={() => handleClick()}>
                 ログイン
               </Link>
             )}
-            {selector.users.isLoggedIn && (
+            {isLoggedIn && (
               <button
                 className="LogOutBtn"
                 onClick={() => {
-                  handleClick()
-                  dispatch(logOutAction())
+                  handleClick();
+                  dispatch(logOutAction());
                 }}
-              >ログアウト</button>
+              >
+                ログアウト
+              </button>
             )}
           </p>
           <p>
-            {selector.users.isLoggedIn && (
+            {isLoggedIn && (
               <Link to="signup" onClick={() => handleClick()}>
                 新規ユーザー登録
               </Link>

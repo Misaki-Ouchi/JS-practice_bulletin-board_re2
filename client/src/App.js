@@ -11,16 +11,13 @@ const App = () => {
   const [titles, setTitles] = useState([]);
   const [likes, setLikes] = useState([]);
 
-  const update = localStorage.getItem("dataChange")
-  console.log(update)
-
   // 投稿データ取得
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/get/comments")
       .then((res) => setComments(res.data))
       .catch((error) => console.log(error));
-  }, [update]);
+  }, []);
 
   // タイトル一覧データ取得
   useEffect(() => {
