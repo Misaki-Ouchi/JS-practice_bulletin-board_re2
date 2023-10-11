@@ -17,7 +17,7 @@ export const logOutAction = (userState) => {
     payload: {
       isLoggedIn: false,
       userId: "",
-      userName: ""
+      userName: "ゲスト"
     }
   }
 }

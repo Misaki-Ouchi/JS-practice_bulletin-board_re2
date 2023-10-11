@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useCallback } from "react";
 import axios from "axios";
 import Router from "./Router";
 
@@ -11,13 +11,16 @@ const App = () => {
   const [titles, setTitles] = useState([]);
   const [likes, setLikes] = useState([]);
 
+  const update = localStorage.getItem("dataChange")
+  console.log(update)
+
   // 投稿データ取得
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/get/comments")
       .then((res) => setComments(res.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [update]);
 
   // タイトル一覧データ取得
   useEffect(() => {

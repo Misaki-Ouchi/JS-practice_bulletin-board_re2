@@ -75,6 +75,8 @@ const NewComments = (props) => {
         .then((res) => navigate(`/allThread/${formValues.title_id}`))
         .catch((err) => console.log(err));
     }
+    // データベースの変更検知
+    localStorage.setItem("dataChange", new Date());
   };
   const validate = (values) => {
     const errors = {};

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { logInAction } from "../../redux/users/actions";
 
 const LogInForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -22,9 +26,8 @@ const LogInForm = () => {
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
           if (res.data !== "Failed") {
-            const data = { user_id: res.data[0].user_id, name: res.data[0].name }
-            console.log(JSON.stringify(data))
-            localStorage.setItem("loginUser", JSON.stringify(data))
+            const data = { userId: res.data[0].user_id, userName: res.data[0].name }
+            dispatch(logInAction(data))
             navigate("/");
           } else {
             alert("ID（メールアドレス）またはパスワードが正しくありません");

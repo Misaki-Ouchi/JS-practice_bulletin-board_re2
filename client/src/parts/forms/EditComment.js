@@ -9,7 +9,6 @@ import DeleteBtn from "../links&btns/DeleteBtn";
 const EditComment = (props) => {
   const navigate = useNavigate();
   const editData = props.editData;
-  console.log(editData)
   const initialValues = {
     name: editData.name,
     email: "",
@@ -56,7 +55,6 @@ const EditComment = (props) => {
     }
   };
   // 投稿を削除
-  console.log(editData.title_id);
   const deleteFunc = () => {
     axios
       .post(`http://localhost:3000/DeleteComment/${editData.id}`)
@@ -83,6 +81,8 @@ const EditComment = (props) => {
         .then((res) => navigate("/"))
         .catch((err) => console.log(err));
     }
+    // データベースの変更検知
+    localStorage.setItem("dataChange", new Date())
   };
   const validate = (values) => {
     const errors = {};
