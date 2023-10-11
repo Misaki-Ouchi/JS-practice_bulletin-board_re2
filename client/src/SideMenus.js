@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector, userDispatch, userSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LogOutBtn from "./parts/links&btns/LogOutBtn";
 import SearchTitle from "./parts/links&btns/SearchTitle";
-// import initialState from "./redux/store/initialState";
 import { logInAction } from "./redux/users/actions";
+import { LogIn } from "./redux/users/operations";
+import { getUserId, getUserName } from "./redux/users/selector";
 
 const SideMenus = (props) => {
   let userName;
@@ -15,6 +16,8 @@ const SideMenus = (props) => {
 
   const dispatch = useDispatch()
   const selector = useSelector( (state) => state )
+  const userId = getUserId(selector)
+  const userName1 = getUserName(selector)
 
   console.log(selector.users)
 
@@ -75,8 +78,9 @@ const SideMenus = (props) => {
           <button onClick={() => searchBtnClick()}>掲示板検索</button>
           {isClicked && <SearchTitle />}
 
-          <button onClick={() => dispatch(logInAction({userID: "1", userName: "aaa"}))}>logIn</button>
-
+          <button onClick={() => dispatch(LogIn())}>LogIn</button>
+          <p>{ userId }</p>
+          <p>{ userName1 }</p>
         </div>
       </nav>
     </>
