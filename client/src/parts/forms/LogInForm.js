@@ -22,7 +22,9 @@ const LogInForm = () => {
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
           if (res.data !== "Failed") {
-            localStorage.setItem("loginUser", JSON.stringify(res.data[0]))
+            const data = { user_id: res.data[0].user_id, name: res.data[0].name }
+            console.log(JSON.stringify(data))
+            localStorage.setItem("loginUser", JSON.stringify(data))
             navigate("/");
           } else {
             alert("ID（メールアドレス）またはパスワードが正しくありません");

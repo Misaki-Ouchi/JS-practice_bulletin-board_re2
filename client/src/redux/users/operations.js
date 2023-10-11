@@ -27,3 +27,9 @@ export const LogIn = (email, password) => {
     }
   };
 };
+
+export const signUp = (userName, email, password) => {
+  return async (dispatch) => {
+
+  }
+}

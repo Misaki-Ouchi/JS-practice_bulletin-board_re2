@@ -77,7 +77,7 @@ const SignUpForm = () => {
             <br />
             <input
               id="password"
-              type="text"
+              type="password"
               name="password"
               onChange={(e) => handleChange(e)}
             />

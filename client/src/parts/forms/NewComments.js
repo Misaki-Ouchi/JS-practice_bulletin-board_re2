@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const NewComments = (props) => {
-  let nameValue = "";
-  let emailValue = "";
   // ユーザー情報取得
   const userValue = localStorage.getItem("loginUser");
 
@@ -19,8 +17,6 @@ const NewComments = (props) => {
   if (userValue) {
     const userName = JSON.parse(userValue).name;
     const userEmail = JSON.parse(userValue).email;
-    // nameValue = userName
-    // emailValue = userEmail
     initialValues.name = userName;
     initialValues.email = userEmail;
   }
@@ -64,17 +60,18 @@ const NewComments = (props) => {
     formValues.time = time;
     // データ送信
     if (Object.keys(formErrors).length === 0 && isSubmit) {
+      // コメント追加
       axios
         .post("http://localhost:3000/comments", formValues)
         .catch((err) => console.log(err));
+      // タイトル編集
       axios
         .post(
           `http://localhost:3000/postComment/titles/${props.title_id}`,
           formValues
         )
         .catch((err) => console.log(err))
-        // フォームクリア
-        .then(setFormValues(initialValues))
+        .then(setFormValues(initialValues)) // フォームクリア
         .then((res) => navigate(`/allThread/${formValues.title_id}`))
         .catch((err) => console.log(err));
     }
@@ -110,7 +107,6 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
-                  // defaultValue={nameValue}
                   value={formValues.name}
                   onChange={(e) => handleChange(e)}
                 />
@@ -124,7 +120,6 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
-                  // defaultValue={emailValue}
                   value={formValues.email}
                   onChange={(e) => handleChange(e)}
                 />
