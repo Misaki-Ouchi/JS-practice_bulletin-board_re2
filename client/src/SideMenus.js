@@ -1,24 +1,20 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchTitle from "./parts/links&btns/SearchTitle";
 import { logOutAction } from "./redux/users/actions";
-import { getUserId } from "./redux/users/selectors";
-import { Comments_Up } from "./redux/comments/actions";
 
 const SideMenus = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
   const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
-  console.log(selector.comments)
 
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsActive(!isActive);
-    dispatch(Comments_Up)
   };
   const searchBtnClick = () => {
     setIsClicked(!isClicked);

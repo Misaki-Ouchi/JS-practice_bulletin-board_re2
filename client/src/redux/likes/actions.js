@@ -1,11 +1,22 @@
-export const likesUp = "likesUp"
+export const LikesUp = "LikesUp"
 export const likesUpAction = (userState) => {
   return {
-    type: "likesUp",
+    type: "LikesUp",
     payload: {
-      id: userState.id,
-      user_id: userState.user_id,
-      title_id: userState.title_id
+      isLiked: true
+      // id: userState.id,
+      // user_id: userState.user_id,
+      // title_id: userState.title_id
+    }
+  }
+}
+
+export const LikesUp_Return = "LikesUp_Return"
+export const likedUpReturnAction = (userState) => {
+  return {
+    type: "LikesUp_Return",
+    payload: {
+      isLiked: false
     }
   }
 }

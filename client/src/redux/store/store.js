@@ -9,6 +9,7 @@ import {UsersReducer} from "../users/reducers"
 import {CommentsReducer} from "../comments/reducers"
 import {TitlesReducer} from "../titles/reducers"
 import {LikesReducer} from "../likes/reducers"
+import {PostsReducer} from "../posts/reducers"
 
 
 export default function createStore() {
@@ -18,6 +19,7 @@ export default function createStore() {
       comments: CommentsReducer,
       titles: TitlesReducer,
       likes: LikesReducer,
+      posts: PostsReducer,
     }),
     applyMiddleware(
       thunk

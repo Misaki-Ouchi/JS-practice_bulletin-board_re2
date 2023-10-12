@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { postsAction } from "./../../redux/posts/actions";
 
 const NewComments = (props) => {
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state); // storeのstateを保存
+  const isPosted = selector.posts.isPosted;
+
   // ユーザー情報取得
   const userValue = localStorage.getItem("loginUser");
 
@@ -73,10 +79,17 @@ const NewComments = (props) => {
         .catch((err) => console.log(err))
         .then(setFormValues(initialValues)) // フォームクリア
         .then((res) => navigate(`/allThread/${formValues.title_id}`))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .then(
+          dispatch(postsAction)
+        )
+        .then(
+          console.log(isPosted)
+        )
+
     }
     // データベースの変更検知
-    localStorage.setItem("dataChange", new Date());
+    // localStorage.setItem("dataChange", new Date());
   };
   const validate = (values) => {
     const errors = {};

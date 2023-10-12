@@ -1,17 +1,17 @@
-import { commentsUpAction } from "./actions";
+import { useState} from "react";
+import { fetchCommentsAction } from "./actions";
+import axios from "axios";
 
-export const commentsUp = () => {
-  return async (dispatch, getState) => {
+export const fetchComments = () => {
+  return async (dispatch) => {
+    const [comments, setComments] = useState([]);
+
     const url = "http://localhost:3000/api/get/comments";
+    axios
+      .get(url)
+      .then((res) => setComments(res.data))
+      .catch((error) => console.log(error));
 
-    const response = await fetch(url)
-      .then((res) => res.json())
-      .catch(() => null);
-
-    dispatch(
-      commentsUpAction({
-        comments: response
-      })
-    );
+    dispatch(fetchCommentsAction(comments));
   };
 };

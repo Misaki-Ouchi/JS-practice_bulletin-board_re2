@@ -1,8 +1,11 @@
 import React, { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Likes } from "./../../App";
+import { likesUpAction } from "../../redux/likes/actions";
 
 const LikesTitleBtn = (props) => {
+  const dispatch = useDispatch();
   const [favorite, setFavorite] = useState("お気に入り");
   const [isDisabled, setIsDisabled] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -38,7 +41,8 @@ const LikesTitleBtn = (props) => {
           setIsRegistered(false);
           setFavorite("お気に入りに登録");
         }
-      });
+      })
+      .then(dispatch(likesUpAction))
   }
   // お気に入り登録
   const setLikesData = () => {

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
+import { useDispatch } from "react-redux";
 // import "react-confirm-alert/src/react-confirm-alert.css";
 import "./../../confirm-alert-css.css";
 import axios from "axios";
-import DeleteBtn from "../links&btns/DeleteBtn";
+import { postsAction } from "./../../redux/posts/actions";
 
 const EditComment = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const editData = props.editData;
   const initialValues = {
@@ -18,7 +20,6 @@ const EditComment = (props) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isDelete, setIsDelete] = useState(false);
-  const [deleteClicked, setDeleteClicked] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
@@ -35,13 +36,11 @@ const EditComment = (props) => {
           label: "はい",
           onClick: () => {
             alert("投稿が削除されました");
-            // setDeleteClicked(true); // 削除コンポーネント発火
             deleteFunc();
           },
         },
         {
           label: "いいえ",
-          // onClick: () => ()
         },
       ],
     });
@@ -62,7 +61,8 @@ const EditComment = (props) => {
     axios
       .post(`http://localhost:3000/DeleteComment/titles/${editData.title_id}`)
       .catch((err) => console.log(err))
-      .then((res) => navigate("/"));
+      .then((res) => navigate("/"))
+      .then(dispatch(postsAction))
   };
   const handleSubmit = (e) => {
     setIsSubmit(true); // 編集ボタンクリック
@@ -79,10 +79,12 @@ const EditComment = (props) => {
         .then(setFormValues(initialValues))
         // 前ページに戻る
         .then((res) => navigate("/"))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .then(dispatch(postsAction))
+
     }
     // データベースの変更検知
-    localStorage.setItem("dataChange", new Date())
+    // localStorage.setItem("dataChange", new Date())
   };
   const validate = (values) => {
     const errors = {};

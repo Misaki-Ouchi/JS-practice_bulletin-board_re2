@@ -3,10 +3,11 @@ import initialState from "../store/initialState";
 
 export const CommentsReducer = (state = initialState.comments, action) => {
   switch (action.type) {
-    case Actions.Comments_Up:
+    case Actions.FETCH_COMMENTS:
       return {
         ...state,
-        ...action.payload,
+        list: [...action.payload]
+        // スプレッド構文にすることでメモリ情報が書き変わって更新を検知
       };
     default:
       return state;

@@ -4,26 +4,26 @@ const initialState = {
     userId: "",
     userName: "ゲスト"
   },
-  comments: {
-    comments: ""
-    // id: "",
-    // title_id: "",
-    // name: "",
-    // email: "",
-    // message: "",
-    // time: ""
-  },
-  titles: {
-    id: "",
-    title: "",
-    count: "",
-    post_time: ""
+  posts: {
+    isPosted: true
   },
   likes: {
-    id: "",
-    user_id: "",
-    title_id: ""
+    isLikedUp: true
   },
+  comments: {
+    list: []
+  },
+  // titles: {
+  //   id: "",
+  //   title: "",
+  //   count: "",
+  //   post_time: ""
+  // },
+  // likes: {
+  //   id: "",
+  //   user_id: "",
+  //   title_id: ""
+  // },
 }
 
 export default initialState
