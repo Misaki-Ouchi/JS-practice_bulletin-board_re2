@@ -9,7 +9,6 @@ const SideMenus = (props) => {
   const selector = useSelector((state) => state); // storeのstateを保存
   const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
-  console.log(selector.users)
 
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);

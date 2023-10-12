@@ -6,26 +6,22 @@ export const fetchLikesAction = (likes) => {
   }
 }
 
-
-export const LikesUp = "LikesUp"
-export const likesUpAction = (userState) => {
+export const LIKES_UP = "LIKES_UP"
+export const likesUpAction = (date) => {
   return {
-    type: "LikesUp",
+    type: "LIKES_UP",
     payload: {
-      isLiked: true
-      // id: userState.id,
-      // user_id: userState.user_id,
-      // title_id: userState.title_id
+      isLikedUp: true
     }
   }
 }
 
-export const LikesUp_Return = "LikesUp_Return"
+export const LIKES_UP_RETURN = "LIKES_UP_RETURN"
 export const likedUpReturnAction = (userState) => {
   return {
-    type: "LikesUp_Return",
+    type: "LIKES_UP_RETURN",
     payload: {
-      isLiked: false
+      isLikedUp: false
     }
   }
 }

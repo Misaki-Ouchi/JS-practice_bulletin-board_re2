@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import { useDispatch } from "react-redux";
-// import "react-confirm-alert/src/react-confirm-alert.css";
 import "./../../confirm-alert-css.css";
 import axios from "axios";
 import { postsAction } from "./../../redux/posts/actions";
@@ -61,8 +60,8 @@ const EditComment = (props) => {
     axios
       .post(`http://localhost:3000/DeleteComment/titles/${editData.title_id}`)
       .catch((err) => console.log(err))
-      .then((res) => navigate("/"))
-      .then(dispatch(postsAction))
+      .then((res) => navigate(-1))
+      .then(dispatch(postsAction()));
   };
   const handleSubmit = (e) => {
     setIsSubmit(true); // 編集ボタンクリック
@@ -78,13 +77,10 @@ const EditComment = (props) => {
         // フォームクリア
         .then(setFormValues(initialValues))
         // 前ページに戻る
-        .then((res) => navigate("/"))
+        .then((res) => navigate(-1))
         .catch((err) => console.log(err))
-        .then(dispatch(postsAction))
-
+        .then(dispatch(postsAction()));
     }
-    // データベースの変更検知
-    // localStorage.setItem("dataChange", new Date())
   };
   const validate = (values) => {
     const errors = {};
@@ -149,16 +145,9 @@ const EditComment = (props) => {
             </div>
           </div>
           <div className="threadBtnLinks">
-            {/* <span onClick={deleteClick} className="deleteBtn"> */}
-            {/* <DeleteBtn
-                clicked={deleteClicked}
-                comment_id={editData.id}
-                title_id={editData.title_id}
-              /> */}
             <button onClick={(e) => deleteClick(e)} className="deleteBtn">
               投稿を削除
             </button>
-            {/* </span> */}
             <button className="submitButton">編集</button>
           </div>
         </form>

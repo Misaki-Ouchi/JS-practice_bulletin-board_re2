@@ -1,4 +1,4 @@
-import { fetchLikesAction } from "./actions";
+import { fetchLikesAction, likesUpAction } from "./actions";
 import axios from "axios";
 
 export const fetchLikes = () => {
@@ -10,3 +10,9 @@ export const fetchLikes = () => {
       .catch((error) => console.log(error));
   };
 };
+
+// export const likesUp = (isLikedUp) => {
+//   return (dispatch) => {
+//     dispatch(likesUpAction(isLikedUp))
+//   }
+// };

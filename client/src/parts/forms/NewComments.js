@@ -4,10 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { postsAction } from "./../../redux/posts/actions";
 
+
 const NewComments = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
   const isPosted = selector.posts.isPosted;
+  const userName = selector.users.userName;
+  const userEmail = selector.users.userEmail;
 
   // ユーザー情報取得
   const userValue = localStorage.getItem("loginUser");
@@ -21,8 +24,6 @@ const NewComments = (props) => {
     time: "",
   };
   if (userValue) {
-    const userName = JSON.parse(userValue).name;
-    const userEmail = JSON.parse(userValue).email;
     initialValues.name = userName;
     initialValues.email = userEmail;
   }
@@ -81,15 +82,9 @@ const NewComments = (props) => {
         .then((res) => navigate(`/allThread/${formValues.title_id}`))
         .catch((err) => console.log(err))
         .then(
-          dispatch(postsAction)
+          dispatch(postsAction())
         )
-        .then(
-          console.log(isPosted)
-        )
-
     }
-    // データベースの変更検知
-    // localStorage.setItem("dataChange", new Date());
   };
   const validate = (values) => {
     const errors = {};

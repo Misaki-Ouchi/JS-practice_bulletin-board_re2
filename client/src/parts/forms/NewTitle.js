@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { DataList } from "../../Router";
+import { postsAction } from "./../../redux/posts/actions";
 
 const NewTitle = () => {
+  const dispatch = useDispatch();
+
   let nameValue = ""
   let emailValue = ""
   // ユーザー情報取得
@@ -78,7 +82,7 @@ const NewTitle = () => {
         // フォームクリア
         .then(setFormValues(initialValues))
         .then((res) => navigate("/successPostTitle"))
-        .then()
+        .then(dispatch(postsAction()))
         .catch((err) => console.log(err));
     }
   };

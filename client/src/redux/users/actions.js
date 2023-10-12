@@ -5,7 +5,8 @@ export const logInAction = (userState) => {
     payload: {
       isLoggedIn: true,
       userId: userState.userId,
-      userName: userState.userName
+      userName: userState.userName,
+      userEmail: userState.userEmail
     }
   }
 }
@@ -17,7 +18,8 @@ export const logOutAction = (userState) => {
     payload: {
       isLoggedIn: false,
       userId: "",
-      userName: "ゲスト"
+      userName: "ゲスト",
+      userEmail: ""
     }
   }
 }

@@ -11,7 +11,6 @@ import {TitlesReducer} from "../titles/reducers"
 import {LikesReducer} from "../likes/reducers"
 import {PostsReducer} from "../posts/reducers"
 
-
 export default function createStore() {
   return reduxCreateStore( // reduxのcreateStoreメソッドの別名
     combineReducers({

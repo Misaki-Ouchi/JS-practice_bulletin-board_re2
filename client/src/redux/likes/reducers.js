@@ -6,22 +6,19 @@ export const LikesReducer = (state = initialState.likes, action) => {
     case Actions.FETCH_LIKES:
       return {
         ...state,
-        list: [...action.payload]
+        list: [...action.payload],
+      };
+    case Actions.LIKES_UP:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case Actions.LIKES_UP_RETURN:
+      return {
+        ...state,
+        ...action.payload
       };
     default:
       return state;
   }
 };
-
-
-// export const LikesReducer = (state = initialState.likes, action) => {
-//   switch (action.type) {
-//     case Actions.LikesUp:
-//       return {
-//         ...state,
-//         ...action.payload,
-//       };
-//     default:
-//       return state;
-//   }
-// };

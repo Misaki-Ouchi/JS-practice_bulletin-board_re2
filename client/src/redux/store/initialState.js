@@ -2,13 +2,11 @@ const initialState = {
   users: {
     isLoggedIn: false,
     userId: "",
-    userName: "ゲスト"
+    userName: "ゲスト",
+    userEmail: ""
   },
   posts: {
-    isPosted: true
-  },
-  likes: {
-    isLikedUp: true
+    isPosted: false
   },
   comments: {
     list: []
@@ -17,6 +15,7 @@ const initialState = {
     list: []
   },
   likes: {
+    isLikedUp: false,
     list: []
   },
 }

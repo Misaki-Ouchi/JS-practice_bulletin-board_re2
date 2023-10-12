@@ -26,7 +26,11 @@ const LogInForm = () => {
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
           if (res.data !== "Failed") {
-            const data = { userId: res.data[0].user_id, userName: res.data[0].name }
+            const data = {
+              userId: res.data[0].user_id,
+              userName: res.data[0].name,
+              userEmail: res.data[0].email
+            }
             dispatch(logInAction(data))
             navigate("/");
           } else {
