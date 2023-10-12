@@ -1,3 +1,12 @@
+export const FETCH_LIKES = "FETCH_LIKES"
+export const fetchLikesAction = (likes) => {
+  return {
+    type: "FETCH_LIKES",
+    payload: likes
+  }
+}
+
+
 export const LikesUp = "LikesUp"
 export const likesUpAction = (userState) => {
   return {

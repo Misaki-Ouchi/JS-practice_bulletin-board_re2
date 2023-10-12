@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ThreadTitles from "./../threads/ThreadTitles";
 import ThreadsAreas from "./../threads/ThreadsAreas";
 import { Likes } from "./../../App";
@@ -6,14 +7,17 @@ import { Titles } from "./../../App";
 import { DataList } from "../../Router";
 
 const UserLikesPage = (props) => {
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state); // storeのstateを保存
+  
   // ユーザー情報取得
-  const value = localStorage.getItem("loginUser");
-  const userName = JSON.parse(value).name;
-  const userId = JSON.parse(value).user_id;
+  const userName = selector.users.userName;
+  const userId = selector.users.userId
 
   let dataList = useContext(DataList);
   let titles = useContext(Titles);
   let likes = useContext(Likes);
+
   // likesからユーザーの好きなタイトルID一覧取得
   likes = likes.filter((val) => {
     return val.user_id === Number(userId);

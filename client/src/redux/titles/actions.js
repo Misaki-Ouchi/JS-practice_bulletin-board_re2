@@ -1,12 +1,7 @@
-export const titlesUp = "titlesUp"
-export const titlesUpAction = (userState) => {
+export const FETCH_TITLES = "FETCH_TITLES"
+export const fetchTitlesAction = (titles) => {
   return {
-    type: "titlesUp",
-    payload: {
-      id: userState.id,
-      title: userState.title,
-      count: userState.count,
-      post_time:userState.post_time
-    }
+    type: "FETCH_TITLES",
+    payload: titles
   }
 }

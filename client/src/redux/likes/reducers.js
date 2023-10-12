@@ -3,12 +3,25 @@ import initialState from "../store/initialState";
 
 export const LikesReducer = (state = initialState.likes, action) => {
   switch (action.type) {
-    case Actions.LikesUp:
+    case Actions.FETCH_LIKES:
       return {
         ...state,
-        ...action.payload,
+        list: [...action.payload]
       };
     default:
       return state;
   }
 };
+
+
+// export const LikesReducer = (state = initialState.likes, action) => {
+//   switch (action.type) {
+//     case Actions.LikesUp:
+//       return {
+//         ...state,
+//         ...action.payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };

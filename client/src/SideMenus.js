@@ -9,6 +9,7 @@ const SideMenus = (props) => {
   const selector = useSelector((state) => state); // storeのstateを保存
   const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
+  console.log(selector.users)
 
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -39,7 +40,7 @@ const SideMenus = (props) => {
             </Link>
           </p>
           <p>
-            {!isLoggedIn && (
+            {isLoggedIn && (
               <Link to="userLikes" onClick={() => handleClick()}>
                 お気に入り一覧
               </Link>
@@ -64,7 +65,7 @@ const SideMenus = (props) => {
             )}
           </p>
           <p>
-            {isLoggedIn && (
+            {!isLoggedIn && (
               <Link to="signup" onClick={() => handleClick()}>
                 新規ユーザー登録
               </Link>

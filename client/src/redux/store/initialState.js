@@ -13,17 +13,12 @@ const initialState = {
   comments: {
     list: []
   },
-  // titles: {
-  //   id: "",
-  //   title: "",
-  //   count: "",
-  //   post_time: ""
-  // },
-  // likes: {
-  //   id: "",
-  //   user_id: "",
-  //   title_id: ""
-  // },
+  titles: {
+    list: []
+  },
+  likes: {
+    list: []
+  },
 }
 
 export default initialState
