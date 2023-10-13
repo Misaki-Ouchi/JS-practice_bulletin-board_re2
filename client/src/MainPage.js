@@ -6,7 +6,6 @@ import { Titles } from "./App";
 import { DataList } from "./Router";
 
 const MainPage = () => {
-
   const dataList = useContext(DataList);
   const titles = useContext(Titles);
 
@@ -39,23 +38,26 @@ const MainPage = () => {
       value = Number(value);
       setPage(value - 1);
     }
+    window.scrollTo(0,0)
   };
+  console.log(titles)
 
   return (
     <>
       <WriteNewTitle />
-      <ThreadTitles titles={titles} />
+      <ThreadTitles titles={titles} count="25"/>
       <ThreadsAreas count="4" dataList={newList[page]} />
 
       <div className="pageBtnArea">
-        <button
-          className="pageBtn"
-          value="before"
-          onClick={handlePage}
-          disabled={page === 0}
-        >
-          前へ
-        </button>
+        {page !== 0 && (
+          <button
+            className="pageBtn"
+            value="before"
+            onClick={handlePage}
+          >
+            前へ
+          </button>
+        )}
         {pageNum.length > 10 && page > 5 && <span>...</span>}
         {pageNum.map((num, index) => {
           return (
@@ -74,14 +76,15 @@ const MainPage = () => {
           );
         })}
         {pageNum.length > 10 && page < pageNum.length - 5 && <span>...</span>}
-        <button
-          className="pageBtn"
-          value="next"
-          onClick={handlePage}
-          disabled={page === pageNum.length-1}
-        >
-          次へ
-        </button>
+        {page !== pageNum.length - 1 && (
+          <button
+            className="pageBtn"
+            value="next"
+            onClick={handlePage}
+          >
+            次へ
+          </button>
+        )}
       </div>
     </>
   );

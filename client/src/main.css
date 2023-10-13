@@ -100,7 +100,11 @@ button[disabled] {
   margin-bottom: 1rem;
 }
 .threadTitles {
+  line-height: 1.1;
   margin-bottom: 3rem;
+}
+.threadTitles a {
+  font-size: 0.7rem;
 }
 .threadTitleSpan {
   font-size: 1rem;
