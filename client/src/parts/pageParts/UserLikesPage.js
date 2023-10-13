@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ThreadTitles from "./../threads/ThreadTitles";
 import ThreadsAreas from "./../threads/ThreadsAreas";
 import { Likes } from "./../../App";
@@ -7,12 +7,18 @@ import { Titles } from "./../../App";
 import { DataList } from "../../Router";
 
 const UserLikesPage = (props) => {
-  const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
-  
   // ユーザー情報取得
   const userName = selector.users.userName;
-  const userId = selector.users.userId
+  const userId = selector.users.userId;
+
+  // お気に入りタイトルの有無
+  let isTitles = true;
+  let message = "お気に入り登録されたスレッドはありません。"
+  // ゲストがURLだけで訪れた場合
+  if (userName === "ゲスト") {
+    message = "お気に入り登録の表示にはログインが必要です。"
+  }
 
   let dataList = useContext(DataList);
   let titles = useContext(Titles);
@@ -35,7 +41,7 @@ const UserLikesPage = (props) => {
     }
   }
   // 好きなタイトル一覧取得
-  let newTitles = []
+  let newTitles = [];
   for (let i = 0; i < titleIds.length; i++) {
     for (let j = 0; j < titles.length; j++) {
       if (titles[j].id === titleIds[i]) {
@@ -44,11 +50,26 @@ const UserLikesPage = (props) => {
     }
   }
 
+  // お気に入りタイトル存在有無
+  if (newTitles.length === 0) {
+    isTitles = false;
+  }
+
+
   return (
     <>
       <h2>{userName}さんのお気に入りスレッド一覧</h2>
-      <ThreadTitles titles={newTitles} />
-      <ThreadsAreas count="4" dataList={newList} />
+      {isTitles && (
+        <>
+          <ThreadTitles titles={newTitles} />
+          <ThreadsAreas count="4" dataList={newList} />
+        </>
+      )}
+      {!isTitles && (
+        <>
+          <p className="likesPageMessage">{ message }</p>
+        </>
+      )}
     </>
   );
 };

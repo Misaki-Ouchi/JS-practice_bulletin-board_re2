@@ -6,7 +6,7 @@ import { likesUpAction } from "../../redux/likes/actions";
 
 const LikesTitleBtn = (props) => {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state); // storeのstateを保存
+  const selector = useSelector((state) => state);
   const isLoggedIn = selector.users.isLoggedIn;
   const userId = selector.users.userId;
 
@@ -56,7 +56,8 @@ const LikesTitleBtn = (props) => {
       })
       .then(() => {
         setFavorite("お気に入り解除");
-        setLikesCount(likes.length)
+        setLikesCount(likesCount + 1)
+        // setLikesCount(likes.length)
       });
   };
   // お気に入り解除
@@ -69,7 +70,8 @@ const LikesTitleBtn = (props) => {
       })
       .then(() => {
         setFavorite("お気に入りに登録");
-        setLikesCount(likes.length)
+        // setLikesCount(likes.length)
+        setLikesCount(likesCount - 1)
       });
   };
   // お気に入りボタンクリック

@@ -292,3 +292,11 @@ button[disabled] {
 .pageBtnArea {
   text-align: center;
 }
+
+/*-------------------------
+  お気に入りページ
+-------------------------*/
+.likesPageMessage {
+  text-align: center;
+  padding: 3rem;
+}

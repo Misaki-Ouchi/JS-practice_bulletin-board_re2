@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-function ThreadTitles({ titles, count }) {
+function ThreadTitles({ titles }) {
   let isDotShow = false
   let newTitles = [];
-  if (titles.length > count - 1) {
-    for (let i = 0; i < count; i++) {
+  if (titles.length >= 20) {
+    for (let i = 0; i < 20; i++) {
       newTitles.push(titles[i]);
     }
     isDotShow = true

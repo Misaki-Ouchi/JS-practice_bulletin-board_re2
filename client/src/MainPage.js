@@ -40,12 +40,11 @@ const MainPage = () => {
     }
     window.scrollTo(0,0)
   };
-  console.log(titles)
 
   return (
     <>
       <WriteNewTitle />
-      <ThreadTitles titles={titles} count="25"/>
+      <ThreadTitles titles={titles}/>
       <ThreadsAreas count="4" dataList={newList[page]} />
 
       <div className="pageBtnArea">
