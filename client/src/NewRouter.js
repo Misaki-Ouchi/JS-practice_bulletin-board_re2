@@ -1,4 +1,5 @@
 import React, { useContext, createContext } from "react";
+import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,7 +24,7 @@ export const DataList = createContext();
 const Layout = () => {
   return (
     <>
-      <MainPage />
+      {/* <MainPage /> */}
       <ScrollRestoration />
     </>
   );
@@ -34,6 +35,7 @@ const createRouter = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <MainPage /> },
+      { path: "/", element: <MainPage /> },
       { path: "newTitle", element: <NewTitlePage /> },
       { path: "login", element: <LogInPage /> },
       { path: "signup", element: <SignUpForm /> },

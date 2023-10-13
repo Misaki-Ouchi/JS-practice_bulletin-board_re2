@@ -1,8 +1,7 @@
 import React, { useEffect, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Router from "./Router";
-// import NewRouter from "./NewRouter";
-import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
+import NewRouter from "./NewRouter";
 
 import { postsReturnAction } from "./redux/posts/actions";
 import { fetchComments } from "./redux/comments/operations";
@@ -50,8 +49,6 @@ const App = () => {
       <Comments.Provider value={comments}>
         <Titles.Provider value={titles}>
           <Likes.Provider value={likes}>
-            
-      {/* <ScrollRestoration /> */}
             <Router />
             {/* <NewRouter /> */}
           </Likes.Provider>

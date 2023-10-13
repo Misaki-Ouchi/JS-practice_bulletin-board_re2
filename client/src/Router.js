@@ -1,5 +1,4 @@
 import React, { useContext, createContext } from "react";
-import { ReactDom } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./parts/dom/Header";
 import Footer from "./parts/dom/Footer";
@@ -14,6 +13,7 @@ import AllThreadPage from "./parts/pageParts/AllThreadPage";
 import EditCommentPage from "./parts/pageParts/EditCommentPage";
 import { Titles, Comments } from "./App";
 import SideMenus from "./SideMenus";
+import ScrollToTop from "./ScrollToTop";
 
 export const DataList = createContext();
 
@@ -42,9 +42,9 @@ const Router = () => {
     <>
       <DataList.Provider value={dataList}>
         <BrowserRouter>
-          {/* <ScrollRestoration /> */}
           <Header />
           <main>
+            <ScrollToTop/>
             <Routes>
               <Route path="/" element={<MainPage />}></Route>
               <Route path="newTitle" element={<NewTitlePage />}></Route>
