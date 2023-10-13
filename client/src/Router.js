@@ -11,6 +11,7 @@ import SuccessPostTitle from "./parts/pageParts/SuccessPostTitle";
 import UserLikesPage from "./parts/pageParts/UserLikesPage";
 import AllThreadPage from "./parts/pageParts/AllThreadPage";
 import EditCommentPage from "./parts/pageParts/EditCommentPage";
+import ScrollToTop from "./ScrollToTop";
 import { Titles, Comments } from "./App";
 import SideMenus from "./SideMenus";
 
@@ -19,6 +20,7 @@ export const DataList = createContext();
 const Router = () => {
   const titles = useContext(Titles);
   const comments = useContext(Comments);
+
   let dataList = [];
   // タイトルにurlデータ挿入
   titles.map((val) => {
@@ -37,30 +39,35 @@ const Router = () => {
   }
 
   return (
-    <DataList.Provider value={dataList}>
-      <BrowserRouter>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<MainPage />}></Route>
-            <Route path="newTitle" element={<NewTitlePage />}></Route>
-            <Route path="login" element={<LogInPage />}></Route>
-            <Route path="signup" element={<SignUpForm />}></Route>
-            <Route path="successSignUp" element={<SuccessSignUp />}></Route>
-            <Route
-              path="successPostTitle"
-              element={<SuccessPostTitle />}
-            ></Route>
-            <Route path="success" element={<SuccessSignUp />}></Route>
-            <Route path="userLikes" element={<UserLikesPage />}></Route>
-            <Route path="allThread/:id" element={<AllThreadPage />}></Route>
-            <Route path="editComment/:id" element={<EditCommentPage />}></Route>
-          </Routes>
-        </main>
-        <SideMenus />
-        <Footer />
-      </BrowserRouter>
-    </DataList.Provider>
+    <>
+      <DataList.Provider value={dataList}>
+        <BrowserRouter>
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<MainPage />}></Route>
+              <Route path="newTitle" element={<NewTitlePage />}></Route>
+              <Route path="login" element={<LogInPage />}></Route>
+              <Route path="signup" element={<SignUpForm />}></Route>
+              <Route path="successSignUp" element={<SuccessSignUp />}></Route>
+              <Route
+                path="successPostTitle"
+                element={<SuccessPostTitle />}
+              ></Route>
+              <Route path="success" element={<SuccessSignUp />}></Route>
+              <Route path="userLikes" element={<UserLikesPage />}></Route>
+              <Route path="allThread/:id" element={<AllThreadPage />}></Route>
+              <Route
+                path="editComment/:id"
+                element={<EditCommentPage />}
+              ></Route>
+            </Routes>
+          </main>
+          <SideMenus />
+          <Footer />
+        </BrowserRouter>
+      </DataList.Provider>
+    </>
   );
 };
 

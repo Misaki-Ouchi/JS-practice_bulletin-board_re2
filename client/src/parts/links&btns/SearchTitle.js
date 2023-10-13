@@ -43,7 +43,7 @@ const SearchTitle = () => {
             src={searchIcon} alt="検索" />
         </div>
       </div>
-      {errorText}
+      <p className="sideMenu_errorMsg">{errorText}</p>
     </>
   );
 };

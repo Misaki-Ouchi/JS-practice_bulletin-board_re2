@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SearchTitle from "./parts/links&btns/SearchTitle";
@@ -9,15 +9,42 @@ const SideMenus = (props) => {
   const selector = useSelector((state) => state); // storeのstateを保存
   const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
+  const sideMenuRef = useRef()
+  const documentClickHandler = useRef()
+  const searchBtn = useRef()
 
   const [isActive, setIsActive] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
+  const [searchBtnClicked, setSearchBtnClicked] = useState(false);
 
-  const handleClick = () => {
-    setIsActive(!isActive);
+  // メニュー内容、検索ボタンクリックでは閉じない設定
+  useEffect(() => {
+    documentClickHandler.current = e => {
+      // メニュー内容クリック
+      if (sideMenuRef.current.contains(e.target)) return
+      // 検索ボタンクリック
+      if (searchBtn.current.contains(e.target)) return
+
+      setIsActive(false)
+      removeDocumentClickHandler()
+    }
+  },[])
+  const removeDocumentClickHandler = (e) => {
+    document.removeEventListener('click', documentClickHandler.current)
+  }
+  // ハンバーガーアイコンクリック
+  const handleClick = e => {
+    if (isActive) { // CLOSE MENU
+      setIsActive(false);
+      setSearchBtnClicked(false);
+      removeDocumentClickHandler()
+    } else { // OPEN MENU
+      setIsActive(true);
+      document.addEventListener('click', documentClickHandler.current)
+    }
   };
+  // 検索ボタンクリック
   const searchBtnClick = () => {
-    setIsClicked(!isClicked);
+    setSearchBtnClicked(!searchBtnClicked);
   };
 
   return (
@@ -25,6 +52,7 @@ const SideMenus = (props) => {
       <div
         className={`side_btn ${isActive && "active"}`}
         onClick={() => handleClick()}
+        ref={sideMenuRef}
       >
         <span></span>
         <span></span>
@@ -70,8 +98,11 @@ const SideMenus = (props) => {
               </Link>
             )}
           </p>
-          <button onClick={() => searchBtnClick()}>掲示板検索</button>
-          {isClicked && <SearchTitle />}
+          <button
+            onClick={() => searchBtnClick()}
+            ref={searchBtn}
+          >掲示板検索</button>
+          {searchBtnClicked && <SearchTitle />}
         </div>
       </nav>
     </>
