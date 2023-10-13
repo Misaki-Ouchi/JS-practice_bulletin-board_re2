@@ -1,6 +1,9 @@
 import React, { useContext, createContext } from "react";
-import { ReactDom } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  ScrollRestoration,
+} from "react-router-dom";
 import Header from "./parts/dom/Header";
 import Footer from "./parts/dom/Footer";
 import MainPage from "./MainPage";
@@ -17,7 +20,34 @@ import SideMenus from "./SideMenus";
 
 export const DataList = createContext();
 
-const Router = () => {
+const Layout = () => {
+  return (
+    <>
+      <MainPage />
+      <ScrollRestoration />
+    </>
+  );
+};
+const createRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <MainPage /> },
+      { path: "newTitle", element: <NewTitlePage /> },
+      { path: "login", element: <LogInPage /> },
+      { path: "signup", element: <SignUpForm /> },
+      { path: "successSignUp", element: <SuccessSignUp /> },
+      { path: "successPostTitle", element: <SuccessPostTitle /> },
+      { path: "success", element: <SuccessSignUp /> },
+      { path: "userLikes", element: <UserLikesPage /> },
+      { path: "allThread/:id", element: <AllThreadPage /> },
+      { path: "editComment/:id", element: <EditCommentPage /> },
+    ],
+  },
+]);
+
+const NewRouter = () => {
   const titles = useContext(Titles);
   const comments = useContext(Comments);
 
@@ -41,35 +71,15 @@ const Router = () => {
   return (
     <>
       <DataList.Provider value={dataList}>
-        <BrowserRouter>
-          {/* <ScrollRestoration /> */}
           <Header />
           <main>
-            <Routes>
-              <Route path="/" element={<MainPage />}></Route>
-              <Route path="newTitle" element={<NewTitlePage />}></Route>
-              <Route path="login" element={<LogInPage />}></Route>
-              <Route path="signup" element={<SignUpForm />}></Route>
-              <Route path="successSignUp" element={<SuccessSignUp />}></Route>
-              <Route
-                path="successPostTitle"
-                element={<SuccessPostTitle />}
-              ></Route>
-              <Route path="success" element={<SuccessSignUp />}></Route>
-              <Route path="userLikes" element={<UserLikesPage />}></Route>
-              <Route path="allThread/:id" element={<AllThreadPage />}></Route>
-              <Route
-                path="editComment/:id"
-                element={<EditCommentPage />}
-              ></Route>
-            </Routes>
+            <RouterProvider router={createRouter} />
           </main>
           <SideMenus />
           <Footer />
-        </BrowserRouter>
       </DataList.Provider>
     </>
   );
 };
 
-export default Router;
+export default NewRouter;

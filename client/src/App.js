@@ -1,6 +1,9 @@
 import React, { useEffect, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Router from "./Router";
+// import NewRouter from "./NewRouter";
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
+
 import { postsReturnAction } from "./redux/posts/actions";
 import { fetchComments } from "./redux/comments/operations";
 import { fetchTitles } from "./redux/titles/operations";
@@ -10,7 +13,6 @@ import { getComments } from "./redux/comments/selectors";
 import { getTitles } from "./redux/titles/selectors";
 import { getLikes } from "./redux/likes/selectors";
 import { getUpdate } from "./redux/posts/selectors";
-import ScrollToTop from "./ScrollToTop";
 
 export const Comments = createContext();
 export const Titles = createContext();
@@ -48,8 +50,10 @@ const App = () => {
       <Comments.Provider value={comments}>
         <Titles.Provider value={titles}>
           <Likes.Provider value={likes}>
-            {/* <ScrollToTop /> */}
+            
+      {/* <ScrollRestoration /> */}
             <Router />
+            {/* <NewRouter /> */}
           </Likes.Provider>
         </Titles.Provider>
       </Comments.Provider>
