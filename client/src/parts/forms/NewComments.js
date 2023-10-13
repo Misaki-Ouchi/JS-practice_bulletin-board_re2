@@ -8,12 +8,9 @@ import { postsAction } from "./../../redux/posts/actions";
 const NewComments = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
-  const isPosted = selector.posts.isPosted;
+  const isLoggedIn = selector.users.isLoggedIn
   const userName = selector.users.userName;
   const userEmail = selector.users.userEmail;
-
-  // ユーザー情報取得
-  const userValue = localStorage.getItem("loginUser");
 
   const initialValues = {
     title_id: props.title_id,
@@ -23,7 +20,7 @@ const NewComments = (props) => {
     post_time: "",
     time: "",
   };
-  if (userValue) {
+  if (isLoggedIn) {
     initialValues.name = userName;
     initialValues.email = userEmail;
   }
@@ -38,7 +35,9 @@ const NewComments = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    if (!isLoggedIn) {
+      setFormErrors(validate(formValues));
+    }
     setIsSubmit(true);
     // タイトル、日時情報の追加
     const date = new Date();
@@ -117,7 +116,7 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
-                  value={formValues.name}
+                  value={initialValues.name}
                   onChange={(e) => handleChange(e)}
                 />
                 <br />
@@ -130,7 +129,7 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
-                  value={formValues.email}
+                  value={initialValues.email}
                   onChange={(e) => handleChange(e)}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
