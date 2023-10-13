@@ -9,37 +9,42 @@ const SideMenus = (props) => {
   const selector = useSelector((state) => state); // storeのstateを保存
   const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
-  const sideMenuRef = useRef()
-  const documentClickHandler = useRef()
-  const searchBtn = useRef()
+  const sideMenuRef = useRef();
+  const documentClickHandler = useRef();
+  const searchBtn = useRef();
+  const innerMenuRef = useRef();
 
   const [isActive, setIsActive] = useState(false);
   const [searchBtnClicked, setSearchBtnClicked] = useState(false);
 
   // メニュー内容、検索ボタンクリックでは閉じない設定
   useEffect(() => {
-    documentClickHandler.current = e => {
-      // メニュー内容クリック
-      if (sideMenuRef.current.contains(e.target)) return
+    documentClickHandler.current = (e) => {
+      // 閉じるボタン
+      if (sideMenuRef.current.contains(e.target)) return;
+      // メニュー内容
+      if (innerMenuRef.current.contains(e.target)) return;
       // 検索ボタンクリック
-      if (searchBtn.current.contains(e.target)) return
+      if (searchBtn.current.contains(e.target)) return;
 
-      setIsActive(false)
-      removeDocumentClickHandler()
-    }
-  },[])
+      setIsActive(false);
+      removeDocumentClickHandler();
+    };
+  }, []);
   const removeDocumentClickHandler = (e) => {
-    document.removeEventListener('click', documentClickHandler.current)
-  }
+    document.removeEventListener("click", documentClickHandler.current);
+  };
   // ハンバーガーアイコンクリック
-  const handleClick = e => {
-    if (isActive) { // CLOSE MENU
+  const handleClick = (e) => {
+    if (isActive) {
+      // CLOSE MENU
       setIsActive(false);
       setSearchBtnClicked(false);
-      removeDocumentClickHandler()
-    } else { // OPEN MENU
+      removeDocumentClickHandler();
+    } else {
+      // OPEN MENU
       setIsActive(true);
-      document.addEventListener('click', documentClickHandler.current)
+      document.addEventListener("click", documentClickHandler.current);
     }
   };
   // 検索ボタンクリック
@@ -58,7 +63,7 @@ const SideMenus = (props) => {
         <span></span>
         <span></span>
       </div>
-      <nav className={`sideMenu ${isActive && "active"}`}>
+      <nav ref={innerMenuRef} className={`sideMenu ${isActive && "active"}`}>
         <div className="sideItems">
           <p>ようこそ {userName}さん</p>
           <p>
@@ -98,11 +103,10 @@ const SideMenus = (props) => {
               </Link>
             )}
           </p>
-          <button
-            onClick={() => searchBtnClick()}
-            ref={searchBtn}
-          >掲示板検索</button>
-          {searchBtnClicked && <SearchTitle />}
+          <div ref={searchBtn}>
+            <button onClick={() => searchBtnClick()}>掲示板検索</button>
+            {searchBtnClicked && <SearchTitle />}
+          </div>
         </div>
       </nav>
     </>

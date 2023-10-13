@@ -1,40 +1,40 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { DataList } from "../../Router";
 import { postsAction } from "./../../redux/posts/actions";
 
 const NewTitle = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  let nameValue = ""
-  let emailValue = ""
-  // ユーザー情報取得
-  const userValue = localStorage.getItem("loginUser");
-  if (userValue) {
-    const userName = JSON.parse(userValue).name;
-    const userEmail = JSON.parse(userValue).email;
-    nameValue = userName
-    emailValue = userEmail
-  }
+  const selector = useSelector((state) => state); // storeのstateを保存
+  const isLoggedIn = selector.users.isLoggedIn;
+  const userName = selector.users.userName;
+  const userEmail = selector.users.userEmail;
 
   const dataList = useContext(DataList);
   const titlesLen = dataList.length;
+  let isDisabled = false
 
   const initialValues = {
     title: "",
     title_id: "",
-    name: nameValue,
-    email: emailValue,
+    name: "",
+    email: "",
     message: "",
     post_time: "",
     time: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const navigate = useNavigate();
-  
+
+  if (isLoggedIn) {
+    formValues.name = userName;
+    formValues.email = userEmail;
+    isDisabled = true;
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
@@ -126,8 +126,9 @@ const NewTitle = () => {
                   id="name"
                   type="text"
                   name="name"
-                  defaultValue={nameValue}
+                  value={formValues.name}
                   onChange={(e) => handleChange(e)}
+                  disabled={isDisabled}
                 />
                 <br />
                 <span className="errorMsg">{formErrors.name}</span>
@@ -139,8 +140,9 @@ const NewTitle = () => {
                   id="email"
                   type="text"
                   name="email"
-                  defaultValue={emailValue}
+                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
+                  disabled={isDisabled}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
               </div>
