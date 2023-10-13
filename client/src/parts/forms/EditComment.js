@@ -19,7 +19,6 @@ const EditComment = (props) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isDelete, setIsDelete] = useState(false);
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,11 +63,10 @@ const EditComment = (props) => {
       .then(dispatch(postsAction()));
   };
   const handleSubmit = (e) => {
-    setIsSubmit(true); // 編集ボタンクリック
     setFormErrors(validate(formValues)); // バリデーションチェック
     e.preventDefault();
     // データ送信
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 && formValues.email !== "" && formValues.message !== "") {
       axios
         .post(
           `http://localhost:3000/editComment/comments/${editData.id}`,

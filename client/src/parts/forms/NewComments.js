@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { postsAction } from "./../../redux/posts/actions";
 
-
 const NewComments = (props) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
-  const isLoggedIn = selector.users.isLoggedIn
+  const isLoggedIn = selector.users.isLoggedIn;
   const userName = selector.users.userName;
   const userEmail = selector.users.userEmail;
 
+  let isDisabled = false; // 名前、emailのinput可/不可
   const initialValues = {
     title_id: props.title_id,
     name: "",
@@ -20,14 +20,15 @@ const NewComments = (props) => {
     post_time: "",
     time: "",
   };
-  if (isLoggedIn) {
-    initialValues.name = userName;
-    initialValues.email = userEmail;
-  }
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
-  const [isSubmit, setIsSubmit] = useState(false);
+
+  if (isLoggedIn) {
+    formValues.name = userName;
+    formValues.email = userEmail;
+    isDisabled = true;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,10 +36,7 @@ const NewComments = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
-      setFormErrors(validate(formValues));
-    }
-    setIsSubmit(true);
+    setFormErrors(validate(formValues));
     // タイトル、日時情報の追加
     const date = new Date();
     const month = date.getMonth() + 1;
@@ -60,12 +58,18 @@ const NewComments = (props) => {
       "(" +
       week[date.getDay()] +
       ")";
+
     const b = date.getHours() + ":" + min + ":" + date.getSeconds() + "." + mil;
     const time = `${a} ${b}`;
     formValues.post_time = date.getTime();
     formValues.time = time;
     // データ送信
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (
+      Object.keys(formErrors).length === 0 &&
+      formValues.name !== "" &&
+      formValues.email !== "" &&
+      formValues.message !== ""
+    ) {
       // コメント追加
       axios
         .post("http://localhost:3000/comments", formValues)
@@ -80,9 +84,7 @@ const NewComments = (props) => {
         .then(setFormValues(initialValues)) // フォームクリア
         .then((res) => navigate(`/allThread/${formValues.title_id}`))
         .catch((err) => console.log(err))
-        .then(
-          dispatch(postsAction())
-        )
+        .then(dispatch(postsAction()));
     }
   };
   const validate = (values) => {
@@ -116,8 +118,9 @@ const NewComments = (props) => {
                   id="name"
                   type="text"
                   name="name"
-                  value={initialValues.name}
+                  value={formValues.name}
                   onChange={(e) => handleChange(e)}
+                  disabled={isDisabled}
                 />
                 <br />
                 <span className="errorMsg">{formErrors.name}</span>
@@ -129,8 +132,9 @@ const NewComments = (props) => {
                   id="email"
                   type="text"
                   name="email"
-                  value={initialValues.email}
+                  value={formValues.email}
                   onChange={(e) => handleChange(e)}
+                  disabled={isDisabled}
                 />
                 <p className="errorMsg">{formErrors.email}</p>
               </div>

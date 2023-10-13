@@ -34,7 +34,6 @@ const NewTitle = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
-  const [isSubmit, setIsSubmit] = useState(false);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +42,6 @@ const NewTitle = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
 
     // タイトル、日時情報の追加
     const date = new Date();
@@ -73,7 +71,11 @@ const NewTitle = () => {
     formValues.post_time = date.getTime();
     formValues.time = time;
     // データ送信
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 &&
+    formValues.title !== "" &&
+    formValues.name !== "" &&
+    formValues.email !== "" &&
+    formValues.message !== "" ) {
       axios
         .post("http://localhost:3000/comments", formValues)
         .catch((err) => console.log(err));

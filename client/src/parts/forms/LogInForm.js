@@ -11,7 +11,6 @@ const LogInForm = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,8 +19,9 @@ const LogInForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 &&
+    formValues.email !== "" &&
+    formValues.password !== "") {
       axios
         .post("http://localhost:3000/login", formValues)
         .then((res) => {

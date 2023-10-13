@@ -7,7 +7,6 @@ const SignUpForm = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,8 +15,10 @@ const SignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues));
-    setIsSubmit(true);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 &&
+    formValues.name !== "" &&
+    formValues.email !== "" &&
+    formValues.password !== "" ) {
       axios
         .post("http://localhost:3000/users", formValues)
         .then((res) => {
