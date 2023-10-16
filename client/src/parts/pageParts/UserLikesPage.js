@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import ThreadTitles from "./../threads/ThreadTitles";
 import ThreadsAreas from "./../threads/ThreadsAreas";
 import { Likes } from "./../../App";
 import { Titles } from "./../../App";
 import { DataList } from "../../Router";
-import { getUpdate } from "./../../redux/posts/selectors";
 
 const UserLikesPage = () => {
   const selector = useSelector((state) => state);
-  const isPosted = getUpdate(selector);
   // ユーザー情報取得
   const userName = selector.users.userName;
   const userId = selector.users.userId;
@@ -38,16 +36,11 @@ const UserLikesPage = () => {
   const titleIds = likes.map((val) => {
     return val.title_id;
   });
-  // dataListから指定IDのコメント一覧取得
-  let newList = [];
   for (let i = 0; i < titleIds.length; i++) {
-    for (let j = 0; j < dataList.length; j++) {
-      if (dataList[j].titleData.id === titleIds[i]) {
-        newList.push(dataList[j]);
-      }
-    }
+    dataList.map(data => {
+      return data.titleData.id === titleIds[i]
+    })
   }
-  dataList = newList;
   // 好きなタイトル一覧取得
   let newTitles = [];
   for (let i = 0; i < titleIds.length; i++) {
