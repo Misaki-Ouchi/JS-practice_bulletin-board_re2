@@ -39,8 +39,9 @@ app.get("/api/get/titles", (req, res) => {
 });
 // 全コメント
 app.get("/api/get/comments", (req, res) => {
-  const sql = "SELECT * FROM comments";
-  con.query(sql, function (err, result, fields) {
+  // 投稿日時古い順 DESC: 降順、ASC: 昇順（デフォルト）
+  const desc = "SELECT * FROM comments ORDER BY post_time ASC";
+  con.query(desc, function (err, result, fields) {
     if (err) {
       return res.json("Error");
     }
@@ -190,7 +191,7 @@ app.post("/likes/register", (req, res) => {
   const sql = "INSERT INTO likes (id, user_id, title_id ) VALUES (0, ?, ?)";
   const values = [req.body.user_id, req.body.title_id];
   con.query(sql, values, function (err, result) {
-    console.log(result)
+    console.log(result);
     if (err) {
       return res.json("Error");
     }
@@ -202,7 +203,7 @@ app.post("/likes/delete", (req, res) => {
   const sql = "DELETE FROM likes WHERE user_id = ? AND title_id = ?";
   const values = [req.body.user_id, req.body.title_id];
   con.query(sql, values, function (err, result) {
-    console.log(result)
+    console.log(result);
     if (err) {
       return res.json("Error");
     }

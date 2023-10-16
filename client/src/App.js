@@ -29,19 +29,19 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchComments());
     dispatch(postsReturnAction());
-  }, [isPosted, dispatch]);
+  }, [isPosted]);
 
   // タイトル一覧データ取得
   useEffect(() => {
     dispatch(fetchTitles());
     dispatch(postsReturnAction());
-  }, [isPosted, dispatch]);
+  }, [isPosted]);
 
   // お気に入り情報取得
   useEffect(() => {
     dispatch(fetchLikes());
     dispatch(likedUpReturnAction());
-  }, [isLikedUp, dispatch]);
+  }, [isLikedUp]);
 
   return (
     <>

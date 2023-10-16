@@ -25,62 +25,51 @@ const UserLikesPage = () => {
   let titles = useContext(Titles);
   let likes = useContext(Likes);
 
-  let isTitles = true;
+  let isTitles = false;
+  if (titles.length > 0) {
+    isTitles = true;
+  }
   // 表示用リスト
+
+  // likesからユーザーの好きなタイトルID一覧取得
+  likes = likes.filter((val) => {
+    return val.user_id === Number(userId);
+  });
+  const titleIds = likes.map((val) => {
+    return val.title_id;
+  });
+  // dataListから指定IDのコメント一覧取得
   let newList = [];
+  for (let i = 0; i < titleIds.length; i++) {
+    for (let j = 0; j < dataList.length; j++) {
+      if (dataList[j].titleData.id === titleIds[i]) {
+        newList.push(dataList[j]);
+      }
+    }
+  }
+  dataList = newList;
+  // 好きなタイトル一覧取得
   let newTitles = [];
-
-  const setDataFunc = () => {
-    // likesからユーザーの好きなタイトルID一覧取得
-    likes = likes.filter((val) => {
-      return val.user_id === Number(userId);
-    });
-    const titleIds = likes.map((val) => {
-      return val.title_id;
-    });
-    // dataListから指定IDのコメント一覧取得
-    for (let i = 0; i < titleIds.length; i++) {
-      for (let j = 0; j < dataList.length; j++) {
-        if (dataList[j].titleData.id === titleIds[i]) {
-          newList.push(dataList[j]);
-        }
+  for (let i = 0; i < titleIds.length; i++) {
+    for (let j = 0; j < titles.length; j++) {
+      if (titles[j].id === titleIds[i]) {
+        newTitles.push(titles[j]);
       }
     }
-    // 好きなタイトル一覧取得
-    for (let i = 0; i < titleIds.length; i++) {
-      for (let j = 0; j < titles.length; j++) {
-        if (titles[j].id === titleIds[i]) {
-          newTitles.push(titles[j]);
-        }
-      }
-    }
-    // お気に入りタイトル存在有無
-    if (newTitles.length === 0) {
-      isTitles = false
-    }
-  };
-  setDataFunc();
-
-  useEffect(() => {
-    // let ignore = false;
-    // if (!ignore) {
-    //   setDataFunc();
-    //   console.log(isPosted);
-    // }
-    // return () => {
-    //   ignore = true;
-    // };
-    setDataFunc();
-
-  }, [isPosted]);
+  }
+  titles = newTitles;
+  // お気に入りタイトル存在有無
+  if (newTitles.length === 0) {
+    isTitles = false;
+  }
 
   return (
     <>
       <h2>{userName}さんのお気に入りスレッド一覧</h2>
       {isTitles && (
         <>
-          <ThreadTitles titles={newTitles} />
-          <ThreadsAreas count="4" dataList={newList} />
+          <ThreadTitles titles={titles} />
+          <ThreadsAreas count="4" dataList={dataList} />
         </>
       )}
       {!isTitles && (
