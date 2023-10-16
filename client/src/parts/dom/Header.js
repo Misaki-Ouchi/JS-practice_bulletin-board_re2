@@ -8,6 +8,7 @@ function header() {
           なんでも掲示板
         </h1>
       </Link>
+      <small>※Reduxでstate管理しているため、リロードするとログアウトされます。</small>
     </header>
   );
 }

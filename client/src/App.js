@@ -1,7 +1,6 @@
-import React, { useEffect, createContext } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Router from "./Router";
-import NewRouter from "./NewRouter";
 
 import { postsReturnAction } from "./redux/posts/actions";
 import { fetchComments } from "./redux/comments/operations";
@@ -46,14 +45,15 @@ const App = () => {
 
   return (
     <>
-      <Comments.Provider value={comments}>
-        <Titles.Provider value={titles}>
-          <Likes.Provider value={likes}>
-            <Router />
-            {/* <NewRouter /> */}
-          </Likes.Provider>
-        </Titles.Provider>
-      </Comments.Provider>
+      {comments.length !== 0 && titles.length !== 0 && (
+        <Comments.Provider value={comments}>
+          <Titles.Provider value={titles}>
+            <Likes.Provider value={likes}>
+              <Router />
+            </Likes.Provider>
+          </Titles.Provider>
+        </Comments.Provider>
+      )}
     </>
   );
 };

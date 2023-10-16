@@ -62,11 +62,6 @@ label {
 /* リンク、ボタン */
 a,
 button
-/* .deleteBtn,
-.showNewCommentsBtn,
-.LogOutBtn,
-.likesTitleBtn,
-.pageBtn  */
 {
   cursor: pointer;
   text-decoration: none;
@@ -79,6 +74,10 @@ button[disabled] {
   color: #333;
   cursor: auto;
 }
+form {
+  max-width: 350px;
+  margin: auto;
+}
 
 .writeNewTitle,
 .threadsArea,
@@ -86,7 +85,7 @@ button[disabled] {
 .formContainer,
 .sideMenu {
   background-color: #ddd;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   margin: 0 auto;
 }
 .writeNewTitle {
@@ -99,15 +98,19 @@ button[disabled] {
   padding: 1rem;
   margin-bottom: 1rem;
 }
+.threadsArea h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
 .threadTitles {
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 3rem;
 }
 .threadTitles a {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 .threadTitleSpan {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-right: 0.3rem;
 }
 .success {
@@ -224,11 +227,16 @@ button[disabled] {
 /*-------------------------
   フォーム
 -------------------------*/
+.formContainer {
+  max-width: 400px;
+  margin: auto;
+}
 .formContainer h2 {
   text-align: center;
+  margin: 1rem auto;
 }
 .uniForm {
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
 }
 .formField {
   margin-bottom: 1rem;
@@ -242,7 +250,7 @@ button[disabled] {
   display: block;
   width: 8rem;
   padding: 0.2rem;
-  margin: 1rem auto;
+  margin: 0 auto 1rem;
   background-color: #17f;
   border: none;
   color: #fff;
