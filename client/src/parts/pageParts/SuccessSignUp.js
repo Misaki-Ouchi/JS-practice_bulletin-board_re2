@@ -1,12 +1,10 @@
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux";
+
 
 const SuccessSignUp = () => {
-  let userName = "";
-  // ユーザー情報取得
-  const userValue = localStorage.getItem("loginUser");
-  if (userValue) {
-    userName = JSON.parse(userValue).name;
-  }
+  const selector = useSelector((state) => state); // storeのstateを保存
+  const userName = selector.users.userName;
 
   return (
     <>

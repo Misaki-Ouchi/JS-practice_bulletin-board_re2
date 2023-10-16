@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logInAction } from "../../redux/users/actions";
 import axios from "axios";
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues = { name: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -13,19 +17,33 @@ const SignUpForm = () => {
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0 &&
-    formValues.name !== "" &&
-    formValues.email !== "" &&
-    formValues.password !== "" ) {
+    if (
+      Object.keys(formErrors).length === 0 &&
+      formValues.name !== "" &&
+      formValues.email !== "" &&
+      formValues.password !== ""
+    ) {
+      // 新規会員登録
       axios
         .post("http://localhost:3000/users", formValues)
+        .catch((err) => console.log(err));
+      // ログイン
+      delete formValues.name; // ログイン用フォームに変更
+      axios
+        .post("http://localhost:3000/login", formValues)
         .then((res) => {
-          localStorage.setItem("loginUser", JSON.stringify(formValues))
-          navigate("/successSignUp");
+          const data = {
+            userId: res.data[0].user_id,
+            userName: res.data[0].name,
+            userEmail: res.data[0].email,
+          };
+          dispatch(logInAction(data));
+          navigate("/");
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err))
+        .then(() => navigate("/successSignUp"));
     }
   };
   const validate = (values) => {

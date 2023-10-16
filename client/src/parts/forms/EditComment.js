@@ -18,7 +18,6 @@ const EditComment = (props) => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isDelete, setIsDelete] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,9 +44,8 @@ const EditComment = (props) => {
   };
   const deleteClick = (e) => {
     e.preventDefault();
-    setIsDelete(true); // 削除ボタンクリック
     setFormErrors(validate(formValues)); // バリデーションチェック
-    if (Object.keys(formErrors).length === 0 && isDelete) {
+    if (Object.keys(formErrors).length === 0 && formValues.email !== "") {
       confirm();
     }
   };

@@ -11,6 +11,7 @@ import SuccessPostTitle from "./parts/pageParts/SuccessPostTitle";
 import UserLikesPage from "./parts/pageParts/UserLikesPage";
 import AllThreadPage from "./parts/pageParts/AllThreadPage";
 import EditCommentPage from "./parts/pageParts/EditCommentPage";
+import SuccessLogOut from "./parts/pageParts/SuccessLogOut";
 import { Titles, Comments } from "./App";
 import SideMenus from "./SideMenus";
 import ScrollToTop from "./ScrollToTop";
@@ -42,30 +43,33 @@ const Router = () => {
     <>
       <DataList.Provider value={dataList}>
         <BrowserRouter>
-          <Header />
-          <main>
-            <ScrollToTop/>
-            <Routes>
-              <Route path="/" element={<MainPage />}></Route>
-              <Route path="newTitle" element={<NewTitlePage />}></Route>
-              <Route path="login" element={<LogInPage />}></Route>
-              <Route path="signup" element={<SignUpForm />}></Route>
-              <Route path="successSignUp" element={<SuccessSignUp />}></Route>
-              <Route
-                path="successPostTitle"
-                element={<SuccessPostTitle />}
-              ></Route>
-              <Route path="success" element={<SuccessSignUp />}></Route>
-              <Route path="userLikes" element={<UserLikesPage />}></Route>
-              <Route path="allThread/:id" element={<AllThreadPage />}></Route>
-              <Route
-                path="editComment/:id"
-                element={<EditCommentPage />}
-              ></Route>
-            </Routes>
-          </main>
-          <SideMenus />
-          <Footer />
+          <div className="bodyWrap">
+            <Header />
+            <main>
+              <ScrollToTop/>
+              <Routes>
+                <Route path="/" element={<MainPage />}></Route>
+                <Route path="newTitle" element={<NewTitlePage />}></Route>
+                <Route path="login" element={<LogInPage />}></Route>
+                <Route path="signup" element={<SignUpForm />}></Route>
+                <Route path="successSignUp" element={<SuccessSignUp />}></Route>
+                <Route
+                  path="successPostTitle"
+                  element={<SuccessPostTitle />}
+                ></Route>
+                <Route path="success" element={<SuccessSignUp />}></Route>
+                <Route path="userLikes" element={<UserLikesPage />}></Route>
+                <Route path="allThread/:id" element={<AllThreadPage />}></Route>
+                <Route
+                  path="editComment/:id"
+                  element={<EditCommentPage />}
+                ></Route>
+                <Route path="successLogOut" element={<SuccessLogOut />}></Route>
+              </Routes>
+            </main>
+            <SideMenus />
+            <Footer />
+          </div>
         </BrowserRouter>
       </DataList.Provider>
     </>

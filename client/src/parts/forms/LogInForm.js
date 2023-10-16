@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { logInAction } from "../../redux/users/actions";
+import axios from "axios";
 
 const LogInForm = () => {
   const dispatch = useDispatch();

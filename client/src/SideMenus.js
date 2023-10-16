@@ -85,15 +85,17 @@ const SideMenus = (props) => {
               </Link>
             )}
             {isLoggedIn && (
-              <button
-                className="LogOutBtn"
-                onClick={() => {
-                  handleClick();
-                  dispatch(logOutAction());
-                }}
-              >
-                ログアウト
-              </button>
+              <Link to="successLogOut">
+                <button
+                  className="LogOutBtn"
+                  onClick={() => {
+                    handleClick();
+                    dispatch(logOutAction());
+                  }}
+                >
+                  ログアウト
+                </button>
+              </Link>
             )}
           </p>
           <p>

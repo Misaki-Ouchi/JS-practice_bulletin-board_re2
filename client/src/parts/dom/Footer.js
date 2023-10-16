@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer>
-        <small>copy write</small>
+        <div className="footerWrap"><small>copy write</small></div>
     </footer>
   );
 }
