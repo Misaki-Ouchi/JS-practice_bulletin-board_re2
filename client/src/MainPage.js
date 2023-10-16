@@ -8,7 +8,7 @@ import { DataList } from "./Router";
 const MainPage = () => {
   const dataList = useContext(DataList);
   const titles = useContext(Titles);
-
+  console.log(dataList)
   const [page, setPage] = useState(0);
 
   // ページネーション
