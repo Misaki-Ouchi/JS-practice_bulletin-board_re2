@@ -1,4 +1,3 @@
-import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 function ThreadTitles({ titles }) {
@@ -16,13 +15,12 @@ function ThreadTitles({ titles }) {
   }
   let lastTitle = titles[titles.length - 1];
 
-
   return (
     <div className="threadTitles">
       {newTitles.map((val, index) => {
         return (
           <Link to={val.url} key={index}>
-            {val.title}({val.count}),
+            No.{val.id} {val.title}({val.count}),&nbsp;
           </Link>
         );
       })}

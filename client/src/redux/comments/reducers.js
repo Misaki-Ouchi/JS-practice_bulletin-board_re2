@@ -6,8 +6,8 @@ export const CommentsReducer = (state = initialState.comments, action) => {
     case Actions.FETCH_COMMENTS:
       return {
         ...state,
-        list: [...action.payload]
         // スプレッド構文にすることでメモリ情報が書き変わって更新を検知
+        list: [...action.payload]
       };
     default:
       return state;

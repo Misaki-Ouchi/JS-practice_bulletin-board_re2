@@ -38,9 +38,7 @@ const SearchTitle = () => {
       <div className="searchBox">
         <input type="text" onChange={(e) => handleChange(e)} />
         <div className="searchBtn">
-          <img
-             onClick={(e) => handleClick(e)}
-            src={searchIcon} alt="検索" />
+          <img onClick={(e) => handleClick(e)} src={searchIcon} alt="検索" />
         </div>
       </div>
       <p className="sideMenu_errorMsg">{errorText}</p>

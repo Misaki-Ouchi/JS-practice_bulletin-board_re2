@@ -26,10 +26,10 @@ const EditCommentPage = () => {
       <div className="thread">
         <div className="threadWrap">
           <div className="threadsArea">
-      <ThreadTitle
-        title_id={editData[0].title_id}
-        title={editTitle.titleData.title}
-      />
+            <ThreadTitle
+              title_id={editData[0].title_id}
+              title={editTitle.titleData.title}
+            />
             <ThreadComments
               comments={editData}
               count={editData[0].count}
@@ -38,7 +38,7 @@ const EditCommentPage = () => {
             <EditComment
               title={editTitle.titleData.title}
               editData={editData[0]}
-                   />
+            />
           </div>
         </div>
       </div>

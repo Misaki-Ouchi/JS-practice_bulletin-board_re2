@@ -1,6 +1,5 @@
-import React, { useEffect, createContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchComments } from "./redux/comments/operations";
+import React, { createContext } from "react";
+import { useSelector } from "react-redux";
 import { getComments } from "./redux/comments/selectors";
 
 export const Comments = createContext();
@@ -8,13 +7,8 @@ export const Titles = createContext();
 export const Likes = createContext();
 
 const Dummy = () => {
-  const dispatch = useDispatch();
   const selector = useSelector((state) => state); // storeのstateを保存
   const comments1 = getComments(selector);
-
-  // useEffect(() => {
-  //   dispatch(fetchComments())
-  // },[dispatch])
 
   return (
     <ul>

@@ -1,5 +1,4 @@
 import React, { useContext, createContext } from "react";
-import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -24,7 +23,6 @@ export const DataList = createContext();
 const Layout = () => {
   return (
     <>
-      {/* <MainPage /> */}
       <ScrollRestoration />
     </>
   );

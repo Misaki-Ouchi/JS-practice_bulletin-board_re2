@@ -69,17 +69,6 @@ const LogInForm = () => {
             />
             <p className="errorMsg">{formErrors.name}</p>
           </div>
-          {/* <div className="formField">
-            <label htmlFor="ID（メールアドレス）">ID（メールアドレス）</label>
-            <br />
-            <input
-              id="email"
-              type="text"
-              name="email"
-              onChange={(e) => handleChange(e)}
-            />
-            <p className="errorMsg">{formErrors.email}</p>
-          </div> */}
           <div className="formField">
             <label htmlFor="パスワード">パスワード</label>
             <br />

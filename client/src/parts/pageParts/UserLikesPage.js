@@ -11,13 +11,14 @@ const UserLikesPage = () => {
   // ユーザー情報取得
   const userName = selector.users.userName;
   const userId = selector.users.userId;
+  const isLoggedIn = selector.users.isLoggedIn;
 
   const [page, setPage] = useState(0);
 
   // お気に入りタイトルの有無
   let message = "お気に入り登録されたスレッドはありません。";
   // ゲストがURLだけで訪れた場合
-  if (userName === "ゲスト") {
+  if (!isLoggedIn) {
     message = "お気に入り登録の表示にはログインが必要です。";
   }
 
@@ -118,7 +119,7 @@ const UserLikesPage = () => {
           );
         })}
         {pageNum.length > 10 && page < pageNum.length - 5 && <span>...</span>}
-        {page !== pageNum.length - 1 && (
+        {page !== pageNum.length - 1 && isLoggedIn && (
           <button className="pageBtn" value="next" onClick={handlePage}>
             次へ
           </button>

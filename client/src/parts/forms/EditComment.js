@@ -61,10 +61,14 @@ const EditComment = (props) => {
       .then(dispatch(postsAction()));
   };
   const handleSubmit = (e) => {
-    setFormErrors(validate(formValues)); // バリデーションチェック
     e.preventDefault();
+    setFormErrors(validate(formValues));
     // データ送信
-    if (Object.keys(formErrors).length === 0 && formValues.email !== "" && formValues.message !== "") {
+    if (
+      Object.keys(formErrors).length === 0 &&
+      formValues.email !== "" &&
+      formValues.message !== ""
+    ) {
       axios
         .post(
           `http://localhost:3000/editComment/comments/${editData.id}`,

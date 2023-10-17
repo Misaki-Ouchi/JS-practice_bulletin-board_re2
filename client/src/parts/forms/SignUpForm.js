@@ -15,11 +15,9 @@ const SignUpForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
     setFormValues({ ...formValues, [name]: value });
   };
   const handleSubmit = (e) => {
-    setNameErrors("");
     e.preventDefault();
     setFormErrors(validate(formValues));
     if (!formValues.name) {
@@ -31,6 +29,8 @@ const SignUpForm = () => {
         .then((res) => {
           if (res.data === "Failed") {
             setNameErrors("こちらのユーザー名はすでに登録されています。");
+          } else {
+            setNameErrors("");
           }
         });
     }
@@ -46,7 +46,6 @@ const SignUpForm = () => {
         .post("http://localhost:3000/users", formValues)
         .catch((err) => console.log(err));
       // ログイン
-      // delete formValues.name; // ログイン用フォームに変更
       axios
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
