@@ -82,6 +82,8 @@ app.post("/confirm/userName", (req, res) => {
     }
     if (result.length > 0) {
       return res.json("Failed");
+    } else {
+      return res.json(result);
     }
   });
 });
@@ -93,9 +95,16 @@ app.post("/login", (req, res) => {
     if (err) {
       return res.json("Error");
     }
-    if (result.length === 0) {
+    if (result.length > 0) {
+      return res.json(result);
+    } else {
       return res.json("Failed");
     }
+    // if (result.length === 0) {
+    //   return res.json("Failed");
+    // } else {
+    //   return res.json(result);
+    // }
   });
 });
 // コメント編集

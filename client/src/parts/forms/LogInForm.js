@@ -17,12 +17,13 @@ const LogInForm = () => {
     setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
   };
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setFormErrors(validate(formValues));
-    if (Object.keys(formErrors).length === 0 &&
-    formValues.name !== "" &&
-      formValues.password !== "") {
-      console.log("a")
+    if (
+      Object.keys(formErrors).length === 0 &&
+      formValues.name !== "" &&
+      formValues.password !== ""
+    ) {
       axios // ログイン認証
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
@@ -30,11 +31,10 @@ const LogInForm = () => {
             const data = {
               userId: res.data[0].user_id,
               userName: res.data[0].name,
-              userEmail: res.data[0].email
-            }
-            dispatch(logInAction(data))
+              userEmail: res.data[0].email,
+            };
+            dispatch(logInAction(data));
             navigate("/");
-            console.log(res.data)
           } else {
             alert("ユーザー名またはパスワードが正しくありません");
           }
@@ -58,7 +58,7 @@ const LogInForm = () => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <h2>ユーザーログイン</h2>
         <div className="uniForm">
-        <div className="formField">
+          <div className="formField">
             <label htmlFor="ユーザー名">ユーザー名</label>
             <br />
             <input

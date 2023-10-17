@@ -20,7 +20,6 @@ const SignUpForm = () => {
   };
   const handleSubmit = (e) => {
     setNameErrors("");
-    console.log(formValues)
     e.preventDefault();
     setFormErrors(validate(formValues));
     if (!formValues.name) {
