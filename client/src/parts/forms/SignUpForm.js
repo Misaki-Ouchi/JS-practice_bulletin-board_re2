@@ -10,17 +10,34 @@ const SignUpForm = () => {
   const initialValues = { name: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [nameErrors, setNameErrors] = useState();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value }); // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
+    // e.targetで取ってきたname, valueをformValuesの空のプロパティと値にそれぞれ代入
+    setFormValues({ ...formValues, [name]: value });
   };
   const handleSubmit = (e) => {
+    setNameErrors("");
+    console.log(formValues)
     e.preventDefault();
     setFormErrors(validate(formValues));
+    if (!formValues.name) {
+      setNameErrors("名前を入力してください。");
+    } else {
+      // ユーザ名登録済みか確認
+      axios
+        .post("http://localhost:3000/confirm/userName", formValues)
+        .then((res) => {
+          if (res.data === "Failed") {
+            setNameErrors("こちらのユーザー名はすでに登録されています。");
+          }
+        });
+    }
     if (
       Object.keys(formErrors).length === 0 &&
+      nameErrors === "" &&
       formValues.name !== "" &&
       formValues.email !== "" &&
       formValues.password !== ""
@@ -30,7 +47,7 @@ const SignUpForm = () => {
         .post("http://localhost:3000/users", formValues)
         .catch((err) => console.log(err));
       // ログイン
-      delete formValues.name; // ログイン用フォームに変更
+      // delete formValues.name; // ログイン用フォームに変更
       axios
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
@@ -50,9 +67,6 @@ const SignUpForm = () => {
     const errors = {};
     const regex =
       /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-    if (!values.name) {
-      errors.name = "名前を入力してください。";
-    }
     if (!values.email) {
       errors.email = "ID（メールアドレス）を入力してください。";
     } else if (!regex.test(values.email)) {
@@ -78,7 +92,7 @@ const SignUpForm = () => {
               name="name"
               onChange={(e) => handleChange(e)}
             />
-            <p className="errorMsg">{formErrors.name}</p>
+            <p className="errorMsg">{nameErrors}</p>
           </div>
           <div className="formField">
             <label htmlFor="ID（メールアドレス）">ID（メールアドレス）</label>

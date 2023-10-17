@@ -196,6 +196,9 @@ form {
 .sideMenu.active {
   right: -.1rem;
 }
+.sideMenu p:first-child {
+  margin-bottom: 2rem;
+}
 .sideMenu .searchBox {
   display: flex;
   justify-content: center;

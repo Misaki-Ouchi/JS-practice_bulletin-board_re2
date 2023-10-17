@@ -7,7 +7,7 @@ import axios from "axios";
 const LogInForm = () => {
   const dispatch = useDispatch();
 
-  const initialValues = { email: "", password: "" };
+  const initialValues = { name: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
@@ -20,9 +20,10 @@ const LogInForm = () => {
     e.preventDefault()
     setFormErrors(validate(formValues));
     if (Object.keys(formErrors).length === 0 &&
-    formValues.email !== "" &&
-    formValues.password !== "") {
-      axios
+    formValues.name !== "" &&
+      formValues.password !== "") {
+      console.log("a")
+      axios // ログイン認証
         .post("http://localhost:3000/login", formValues)
         .then((res) => {
           if (res.data !== "Failed") {
@@ -33,8 +34,9 @@ const LogInForm = () => {
             }
             dispatch(logInAction(data))
             navigate("/");
+            console.log(res.data)
           } else {
-            alert("ID（メールアドレス）またはパスワードが正しくありません");
+            alert("ユーザー名またはパスワードが正しくありません");
           }
         })
         .catch((err) => console.log(err));
@@ -42,8 +44,8 @@ const LogInForm = () => {
   };
   const validate = (values) => {
     const errors = {};
-    if (!values.email) {
-      errors.email = "ID（メールアドレス）を入力してください。";
+    if (!values.name) {
+      errors.name = "ユーザー名を入力してください。";
     }
     if (!values.password) {
       errors.password = "パスワードを入力してください。";
@@ -56,7 +58,18 @@ const LogInForm = () => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <h2>ユーザーログイン</h2>
         <div className="uniForm">
-          <div className="formField">
+        <div className="formField">
+            <label htmlFor="ユーザー名">ユーザー名</label>
+            <br />
+            <input
+              id="name"
+              type="text"
+              name="name"
+              onChange={(e) => handleChange(e)}
+            />
+            <p className="errorMsg">{formErrors.name}</p>
+          </div>
+          {/* <div className="formField">
             <label htmlFor="ID（メールアドレス）">ID（メールアドレス）</label>
             <br />
             <input
@@ -66,7 +79,7 @@ const LogInForm = () => {
               onChange={(e) => handleChange(e)}
             />
             <p className="errorMsg">{formErrors.email}</p>
-          </div>
+          </div> */}
           <div className="formField">
             <label htmlFor="パスワード">パスワード</label>
             <br />

@@ -72,18 +72,28 @@ app.post("/users", (req, res) => {
     return res.json(result);
   });
 });
-// ログイン
-app.post("/login", (req, res) => {
-  const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-  const values = [req.body.email, req.body.password];
+// 新規登録 ユーザ名確認
+app.post("/confirm/userName", (req, res) => {
+  const sql = "SELECT * FROM users WHERE name = ?";
+  const values = [req.body.name];
   con.query(sql, values, function (err, result) {
-    console.log(result);
     if (err) {
       return res.json("Error");
     }
     if (result.length > 0) {
-      return res.json(result);
-    } else {
+      return res.json("Failed");
+    }
+  });
+});
+// ログイン
+app.post("/login", (req, res) => {
+  const sql = "SELECT * FROM users WHERE name = ? AND password = ?";
+  const values = [req.body.name, req.body.password];
+  con.query(sql, values, function (err, result) {
+    if (err) {
+      return res.json("Error");
+    }
+    if (result.length === 0) {
       return res.json("Failed");
     }
   });
